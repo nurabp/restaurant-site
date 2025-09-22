@@ -1,7 +1,5 @@
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-/* Общие стили */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 html {
     scroll-behavior: smooth;
 }
@@ -15,7 +13,7 @@ body {
     line-height: 1.6;
 }
 
-/* Шапка */
+
 header {
     background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
                 url('images/restaurant.jpg') no-repeat center/cover;
@@ -35,7 +33,7 @@ header h1 {
     to { transform: translateY(0); opacity: 1; }
 }
 
-/* Навигация */
+
 nav {
     margin-top: 20px;
 }
@@ -54,7 +52,7 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* Секции */
+
 main {
     padding: 60px 20px;
     text-align: center;
@@ -64,7 +62,7 @@ section {
     margin-bottom: 50px;
 }
 
-/* Картинки */
+
 .circle-img {
     width: 200px;
     height: 200px;
@@ -79,7 +77,7 @@ section {
     transform: scale(1.1) rotate(2deg);
 }
 
-/* Формы */
+
 form {
     max-width: 500px;
     margin: auto;
@@ -116,7 +114,7 @@ form button:hover {
     transform: scale(1.05);
 }
 
-/* Подвал */
+
 footer {
     background: #222;
     color: #ddd;
@@ -125,7 +123,7 @@ footer {
     margin-top: 50px;
 }
 
-/* Сетка меню */
+
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
