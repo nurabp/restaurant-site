@@ -12,8 +12,6 @@ body {
     line-height: 1.6;
 }
 
-<<<<<<< HEAD
-=======
 header {
     background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
                 url('images/restaurant.jpg') no-repeat center/cover;
@@ -51,7 +49,6 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
->>>>>>> 2bf6a4b39da33a15c3b6260ba2dbce98bd4d7347
 main {
     padding: 60px 20px;
     text-align: center;
