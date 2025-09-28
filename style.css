@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 html {
     scroll-behavior: smooth;
@@ -13,46 +12,6 @@ body {
     line-height: 1.6;
 }
 
-
-header {
-    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-                url('images/restaurant.jpg') no-repeat center/cover;
-    color: white;
-    padding: 80px 20px;
-    text-align: center;
-}
-
-header h1 {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
-    animation: fadeDown 1s ease;
-}
-
-@keyframes fadeDown {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-
-nav {
-    margin-top: 20px;
-}
-
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
-
-nav a:hover {
-    background-color: #c1121f;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-
 main {
     padding: 60px 20px;
     text-align: center;
@@ -62,12 +21,149 @@ section {
     margin-bottom: 50px;
 }
 
+header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #0d1217; 
+    color: white;
+    padding: 20px 40px; 
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0; 
+}
+
+nav a {
+    color: white;
+    margin: 0 10px; 
+    text-decoration:none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #c1121f;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.flex-cards-row {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 25px;
+    align-items: stretch; 
+    justify-content: center;
+    padding: 20px;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column; 
+    flex: 1 1 300px; 
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #333;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.menu-item:hover {
+    transform: translateY(-8px) scale(1.03); 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.menu-item p {
+    flex-grow: 1; 
+    font-size: 0.9rem;
+    color: #f1f1f1;
+    padding: 0 15px;
+}
+
+.price {
+    display: block;
+    margin-top: auto; 
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #fdfd96;
+    padding: 0 15px;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.page-wrapper {
+    display: grid; 
+    min-height: 100vh;
+    grid-template-columns: 250px 1fr; 
+    grid-template-rows: auto 1fr auto; 
+    grid-template-areas:
+        "header header" 
+        "sidebar main"   
+        "footer footer"; 
+}
+
+header { grid-area: header; } 
+.grid-sidebar { 
+    grid-area: sidebar; 
+    background-color: #333;
+    padding: 30px 20px;
+    text-align: left;
+}
+.grid-main { grid-area: main; }
+footer { grid-area: footer; } 
+
+.image-gallery {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    grid-auto-rows: 250px; 
+    gap: 15px; 
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(193, 18, 31, 0.85); 
+    color: white;
+    padding: 10px;
+    text-align: center;
+    transform: translateY(100%); 
+    transition: transform 0.3s ease-out;
+}
+
+.gallery-item:hover .caption {
+    transform: translateY(0); 
+}
 
 .circle-img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 5px solid #c1121f;
+    border: 5px solid #d9ff00;
     display: block;
     margin: 20px auto;
     transition: transform 0.4s;
@@ -77,53 +173,6 @@ section {
     transform: scale(1.1) rotate(2deg);
 }
 
-
-form {
-    max-width: 500px;
-    margin: auto;
-}
-
-form input, form textarea, form button {
-    display: block;
-    margin: 12px auto;
-    padding: 14px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: 0.3s;
-}
-
-form input:focus, form textarea:focus {
-    border-color: #c1121f;
-    outline: none;
-    box-shadow: 0 0 6px rgba(193,18,31,0.5);
-}
-
-form button {
-    background: #c1121f;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    transition: 0.3s;
-}
-
-form button:hover {
-    background: #800000;
-    transform: scale(1.05);
-}
-
-
-footer {
-    background: #222;
-    color: #ddd;
-    text-align: center;
-    padding: 20px;
-    margin-top: 50px;
-}
-
-
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -132,52 +181,48 @@ footer {
     padding: 20px;
 }
 
-.menu-item {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-    width: 300px;
-}
-
-.menu-item:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-}
-
-.menu-item img {
-    display: block;
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.menu-item:hover img {
-    transform: scale(1.1);
-}
-
-.menu-item h3 {
-    margin: 10px 0 5px;
-    color: #ffffff;
-}
-
-.menu-item p {
-    font-size: 0.9rem;
-    color: #f1f1f1;
-}
-
-.price {
-    display: block;
-    margin-top: 8px;
-    font-weight: bold;
-    color: #fdfd96;
-}
-
-.about-section, .contact-section {
-    max-width: 800px;
-    margin: 0 auto;
+footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
     padding: 20px;
-    text-align: left;
+    margin-top: 50px;
+}
+.reservation-form input,
+.reservation-form textarea {
+    flex: 1 1 180px; 
+    padding: 12px;
+    border: 1px solid #777; 
+    border-radius: 6px;
+    background-color: #444; 
+    color: white; 
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.reservation-form input:focus,
+.reservation-form textarea:focus {
+    border-color: #c1121f; 
+    outline: none;
+}
+
+.reservation-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.reservation-form button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    background-color: #c1121f; 
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.reservation-form button:hover {
+    background-color: #e41f30; 
+    transform: translateY(-2px);
 }
