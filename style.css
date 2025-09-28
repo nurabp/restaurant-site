@@ -12,6 +12,46 @@ body {
     line-height: 1.6;
 }
 
+<<<<<<< HEAD
+=======
+header {
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url('images/restaurant.jpg') no-repeat center/cover;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    animation: fadeDown 1s ease;
+}
+
+@keyframes fadeDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+nav {
+    margin-top: 20px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #c1121f;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+>>>>>>> 2bf6a4b39da33a15c3b6260ba2dbce98bd4d7347
 main {
     padding: 60px 20px;
     text-align: center;
