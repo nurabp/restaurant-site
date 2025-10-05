@@ -4,44 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gourmet Place - About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="page-wrapper">
-        <header>
-            <h1 id="main-banner">🍷 Gourmet Place</h1>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="menu.html">Menu</a>
-                <a href="about.html">About us</a>
-                <a href="contact.html">Contacts</a>
-            </nav>
-        </header>
+    
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Main navigation" style="--bs-bg-opacity: .9;">
+            <div class="container-fluid">
+                <a class="navbar-brand text-warning fw-bold" href="index.html">🍷 Gourmet Place</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="menu.html">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="about.html">About us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contacts</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-        <aside class="grid-sidebar">
-            <h3>Our Achievements</h3>
-            <p>🏆 Awarded "Best Gourmet Restaurant" 2024.</p>
-            <p>🌟 5-star rating on all major review platforms.</p>
-            <p>🌍 Chef Sanji Vinsmoke has traveled to 7 continents.</p>
-        </aside>
+    <main class="mt-5 pt-4 container">
+        <h1 class="my-5 text-light text-center">Our Story</h1>
+        
+        <section class="about-section mb-5">
+            <div class="row g-4">
+                <div class="col-12 col-md-4">
+                    <aside class="p-3 bg-secondary rounded h-100">
+                        <h3 class="text-warning">Our Achievements</h3>
+                        <p>🏆 Awarded "Best Gourmet Restaurant" 2024.</p>
+                        <p>🌟 5-star rating on all major review platforms.</p>
+                        <p>🌍 Chef Sanji Vinsmoke has trained in 7 continents.</p>
+                        <button type="button" class="btn btn-sm btn-outline-warning">More Awards</button>
+                    </aside>
+                </div>
+                
+                <div class="col-12 col-md-8">
+                    <div class="p-3">
+                        <p><strong>Gourmet Place was founded in 2020 with a simple mission: to make haute cuisine accessible to everyone.</strong> We believe that food is an art form and every meal is a special occasion. Our restaurant combines the best culinary traditions from around the world with a unique, creative approach to give you an unforgettable gastronomic experience.</p>
+                        <p>Our commitment to quality begins with the ingredients. We source only the freshest, locally-sourced produce, meats, and seafood to ensure every dish is a celebration of flavor and freshness. Step into our elegant and inviting atmosphere, where every detail is designed to enhance your dining journey.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <main class="grid-main">
-            <h1>Our Story</h1>
-            <section class="about-section">
-                <p><strong>Gourmet Place was founded in 2020 with a simple mission: to make haute cuisine accessible to everyone.</strong> We believe that food is an art form and every meal is a special occasion. Our restaurant combines the best culinary traditions from around the world with a unique, creative approach to give you an unforgettable gastronomic experience.</p>
-                <p>Our commitment to quality begins with the ingredients. We source only the freshest, locally-sourced produce, meats, and seafood to ensure every dish is a celebration of flavor and freshness. Step into our elegant and inviting atmosphere, where every detail is designed to enhance your dining journey.</p>
-            </section>
+        <section class="about-section text-center my-5">
+            <h2 class="text-light mb-4">Our Chef</h2>
+            <img src="images/cheff.jpg" alt="Chef John Smith" class="circle-img">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <p class="lead mt-4"><strong>Meet our Executive Chef, Sanji Vinsmoke, a true master of his craft with over 20 years of experience in international cuisine.</strong> He has trained in some of the most prestigious restaurants in Europe and Asia, and now he creates unique dishes exclusively for you. His passion for innovation and his respect for classic techniques are evident in every plate he crafts.</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
 
-            <h1>Our Chef</h1>
-            <section class="about-section">
-                <img src="images/cheff.jpg" alt="Chef John Smith" class="circle-img">
-                <p><strong>Meet our Executive Chef, Sanji Vinsmoke, a true master of his craft with over 20 years of experience in international cuisine.</strong> He has trained in some of the most prestigious restaurants in Europe and Asia, and now he creates unique dishes exclusively for you. His passion for innovation and his respect for classic techniques are evident in every plate he crafts.</p>
-            </section>
-        </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-        <footer>
-            <p>Akhmetov Nurali</p>
-        </footer>
-    </div>
+    <footer class="bg-dark text-white text-center p-3 mt-5">
+        <p class="mb-0">Akhmetov Nurali</p>
+    </footer>
 </body>
 </html>
