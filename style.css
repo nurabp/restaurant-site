@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
 html {
     scroll-behavior: smooth;
 }
@@ -27,22 +28,32 @@ body {
     transform: scale(1.1) rotate(2deg);
 }
 
-/*Мобильные*/
+
+
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+   ========================================== */
+
+/* Мобильные */
 body {
     font-size: 14px; 
 }
+
 main h1 { 
     font-size: 2rem; 
 }
+
 main h2 { 
     font-size: 1.5rem;
 }
+
 .card-title { 
     font-size: 1.1rem;
 }
 
-
-/*Планшеты*/
+/* Планшеты */
 @media (min-width: 768px) {
     body {
         font-size: 16px; 
@@ -58,7 +69,7 @@ main h2 {
     }
 }
 
-/*Компьютеры*/
+/* Компьютеры */
 @media (min-width: 1024px) {
     body {
         font-size: 18px; 
@@ -74,6 +85,9 @@ main h2 {
     }
 }
 
+/* ==========================================
+   CARD IMAGES
+   ========================================== */
 .card-img-top {
     height: 400px; 
     object-fit: cover; 
@@ -88,6 +102,9 @@ main h2 {
     height: 500px !important;
 }
 
+/* ==========================================
+   BESTSELLERS LAYOUT
+   ========================================== */
 .bestsellers .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -112,4 +129,109 @@ main h2 {
         flex: 0 0 calc(33.333% - 11px);
         max-width: calc(33.333% - 11px); 
     }
+}
+
+/* Popup */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+}
+
+.popup-form {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Accordion */
+.accordion-item-custom {
+    background-color: #2d2d2d;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.accordion-header-custom {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordion-header-custom:hover {
+    background-color: #3d3d3d;
+}
+
+.accordion-icon {
+    font-size: 24px;
+    transition: transform 0.3s;
+}
+
+.accordion-item-custom.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content-custom {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s;
+    padding: 0 20px;
+}
+
+.accordion-content-custom p {
+    padding: 20px 0;
+}
+
+/* Buttons */
+.feature-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.feature-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+/* DateTime */
+.datetime-display {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
 }

@@ -43,29 +43,43 @@
             <div class="col-lg-8 mb-4">
                 <div class="p-4 bg-dark rounded shadow h-100 text-start">
                     <h2>Reservation Form</h2>
-                    <form class="row g-3"> <div class="col-md-6">
-                            <label for="inputName" class="form-label">Name</label>
+                    <p class="text-warning mb-4">⚠️ All fields marked with * are required</p>
+                    
+                    <!-- TASK 1: Form with JavaScript Validation -->
+                    <form id="reservationForm" class="row g-3" novalidate>
+                        <div class="col-md-6">
+                            <label for="inputName" class="form-label">Name *</label>
                             <input type="text" class="form-control bg-secondary text-white border-danger" id="inputName" placeholder="Your Name" required>
                         </div>
                         
                         <div class="col-md-6">
-                            <label for="inputEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control bg-secondary text-white border-danger" id="inputEmail" placeholder="Your Email" required>
+                            <label for="inputEmail" class="form-label">Email *</label>
+                            <input type="email" class="form-control bg-secondary text-white border-danger" id="inputEmail" placeholder="example@email.com" required>
                         </div>
 
                         <div class="col-md-4">
-                            <label for="inputDate" class="form-label">Date</label>
+                            <label for="inputDate" class="form-label">Date *</label>
                             <input type="date" class="form-control bg-secondary text-white border-danger" id="inputDate" required>
                         </div>
                         
                         <div class="col-md-4">
-                            <label for="inputTime" class="form-label">Time</label>
+                            <label for="inputTime" class="form-label">Time *</label>
                             <input type="time" class="form-control bg-secondary text-white border-danger" id="inputTime" value="19:00" required>
                         </div>
                         
                         <div class="col-md-4">
-                            <label for="inputGuests" class="form-label">Guests</label>
+                            <label for="inputGuests" class="form-label">Guests * (1-10)</label>
                             <input type="number" class="form-control bg-secondary text-white border-danger" id="inputGuests" min="1" max="10" value="2" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="inputPassword" class="form-label">Password * (min 8 characters)</label>
+                            <input type="password" class="form-control bg-secondary text-white border-danger" id="inputPassword" placeholder="Create password" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="inputPasswordConfirm" class="form-label">Confirm Password *</label>
+                            <input type="password" class="form-control bg-secondary text-white border-danger" id="inputPasswordConfirm" placeholder="Confirm password" required>
                         </div>
 
                         <div class="col-12">
@@ -90,10 +104,16 @@
             </div>
         </div>
     </main>
-
+ <div class="feature-buttons">
+        <button id="bgChangeBtn" class="feature-btn btn-warning">
+            🎨 Change Background
+        </button>
+    </div>
     <footer class="bg-dark text-white text-center p-3 mt-5">
         <p class="mb-0">Akhmetov Nurali</p>
     </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
 </html>

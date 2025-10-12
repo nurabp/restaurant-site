@@ -37,13 +37,22 @@
     </header>
 
     <main class="mt-5 pt-4"> 
+        <!-- TASK 5: Current Date and Time Display -->
+        <div class="container mt-5">
+            <div class="datetime-display">
+                <div>📅 Current Date & Time</div>
+                <div id="currentDateTime"></div>
+            </div>
+        </div>
+
         <section class="intro text-center py-5" style="background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('images/restaurant.jpg') no-repeat center/cover; color: white;">
             <div class="container my-5">
                 <h2 class="display-3 fw-bold">Welcome to our restaurant</h2>
                 <p class="lead highlighted-text">Where taste meets elegance</p>
                 <img src="images/restaurant.jpg" alt="Интерьер ресторана" class="circle-img my-4">
                 
-                <a href="contact.html" class="btn btn-warning btn-lg">Book a Table Now</a>
+                <a href="contact.html" class="btn btn-warning btn-lg me-2">Book a Table Now</a>
+                <button id="subscribeBtn" class="btn btn-primary btn-lg">Subscribe to Newsletter</button>
             </div>
         </section>
 
@@ -66,6 +75,61 @@
                         <p>Our restaurant offers a refined and welcoming ambiance, perfect for any occasion, from a casual lunch to a romantic dinner or a large celebration.</p>
                         <button class="btn btn-outline-light btn-sm">View Gallery</button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TASK 2: Accordion FAQ Section -->
+        <section class="container my-5 py-5">
+            <h2 class="text-center mb-5 text-light">Frequently Asked Questions</h2>
+            
+            <div class="accordion-item-custom">
+                <div class="accordion-header-custom">
+                    <h3 class="text-warning mb-0">What are your opening hours?</h3>
+                    <span class="accordion-icon text-warning">▼</span>
+                </div>
+                <div class="accordion-content-custom">
+                    <p class="text-light">We are open Monday to Sunday from 10:00 AM to 10:00 PM. We also take reservations for special events outside these hours.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item-custom">
+                <div class="accordion-header-custom">
+                    <h3 class="text-warning mb-0">Do you offer vegetarian and vegan options?</h3>
+                    <span class="accordion-icon text-warning">▼</span>
+                </div>
+                <div class="accordion-content-custom">
+                    <p class="text-light">Yes! We have a wide selection of vegetarian and vegan dishes. Our chef can also customize meals to accommodate dietary restrictions.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item-custom">
+                <div class="accordion-header-custom">
+                    <h3 class="text-warning mb-0">Is reservation required?</h3>
+                    <span class="accordion-icon text-warning">▼</span>
+                </div>
+                <div class="accordion-content-custom">
+                    <p class="text-light">While walk-ins are welcome, we highly recommend making a reservation, especially for dinner and weekends, to ensure you get your preferred table.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item-custom">
+                <div class="accordion-header-custom">
+                    <h3 class="text-warning mb-0">Do you cater for private events?</h3>
+                    <span class="accordion-icon text-warning">▼</span>
+                </div>
+                <div class="accordion-content-custom">
+                    <p class="text-light">Absolutely! We offer private dining rooms and full catering services for birthdays, corporate events, weddings, and other celebrations. Contact us for details.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item-custom">
+                <div class="accordion-header-custom">
+                    <h3 class="text-warning mb-0">What payment methods do you accept?</h3>
+                    <span class="accordion-icon text-warning">▼</span>
+                </div>
+                <div class="accordion-content-custom">
+                    <p class="text-light">We accept all major credit cards (Visa, MasterCard, American Express), debit cards, and cash payments.</p>
                 </div>
             </div>
         </section>
@@ -111,8 +175,31 @@
         </section>
 
     </main>
+
+    <!-- TASK 3: Popup Subscription Form -->
+    <div id="popupOverlay" class="popup-overlay">
+        <div id="popupForm" class="popup-form">
+            <button id="closePopup" class="popup-close">&times;</button>
+            <h2 class="text-white text-center mb-4">📧 Subscribe to Our Newsletter</h2>
+            <p class="text-white text-center mb-4">Get exclusive offers, new menu items, and special event invitations!</p>
+            <form id="subscriptionForm">
+                <div class="mb-3">
+                    <input type="email" class="form-control form-control-lg" id="popupEmail" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="btn btn-warning btn-lg w-100">Subscribe Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- TASK 4: Background Color Changer Button -->
+    <div class="feature-buttons">
+        <button id="bgChangeBtn" class="feature-btn btn-warning">
+            🎨 Change Background
+        </button>
+    </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 
    <footer class="bg-dark text-white text-center p-3 mt-5">
         <p class="mb-0">Akhmetov Nurali</p>
