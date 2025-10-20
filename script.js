@@ -1,145 +1,231 @@
-// Task 1: Form Validation
-const form = document.getElementById('reservationForm');
 
-if (form) {
-    form.addEventListener('submit', function(e) {
+const reservationForm = document.getElementById('reservationForm');
+
+if (reservationForm) {
+    
+    reservationForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        const name = document.getElementById('inputName').value;
-        const email = document.getElementById('inputEmail').value;
-        const date = document.getElementById('inputDate').value;
-        const password = document.getElementById('inputPassword').value;
-        const passwordConfirm = document.getElementById('inputPasswordConfirm').value;
+
+        const nameInput = document.getElementById('inputName');
+        const emailInput = document.getElementById('inputEmail');
+        const dateInput = document.getElementById('inputDate');
+        const timeInput = document.getElementById('inputTime');
+        const passwordInput = document.getElementById('inputPassword');
+        const passwordConfirmInput = document.getElementById('inputPasswordConfirm');
+        const guestsInput = document.getElementById('inputGuests');
         
         let errors = [];
-        
-        if (name.length < 2) {
-            errors.push('Name is too short');
+
+        document.querySelectorAll('.form-control').forEach(input => input.classList.remove('is-invalid'));
+        const existingFeedback = document.getElementById('formFeedback');
+        if (existingFeedback) {
+            existingFeedback.remove();
         }
         
-        if (!email.includes('@')) {
-            errors.push('Invalid email');
+        if (nameInput.value.length < 2) {
+            errors.push('Имя должно содержать не менее 2 символов.');
+            nameInput.classList.add('is-invalid');
+        }
+
+        if (!emailInput.value.includes('@') || emailInput.value.length < 5) {
+            errors.push('Пожалуйста, введите корректный email адрес.');
+            emailInput.classList.add('is-invalid');
         }
         
-        if (!date) {
-            errors.push('Please select a date');
+        const selectedDate = new Date(dateInput.value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); 
+        if (!dateInput.value || selectedDate < today) {
+            errors.push('Пожалуйста, выберите будущую дату.');
+            dateInput.classList.add('is-invalid');
+        }
+
+        if (passwordInput.value.length < 8) {
+            errors.push('Пароль должен быть не менее 8 символов.');
+            passwordInput.classList.add('is-invalid');
         }
         
-        if (password.length < 8) {
-            errors.push('Password must be 8+ characters');
+        if (passwordInput.value !== passwordConfirmInput.value) {
+            errors.push('Пароли не совпадают.');
+            passwordConfirmInput.classList.add('is-invalid');
         }
-        
-        if (password !== passwordConfirm) {
-            errors.push('Passwords do not match');
+
+        const guests = parseInt(guestsInput.value);
+        if (isNaN(guests) || guests < 1 || guests > 10) {
+            errors.push('Количество гостей должно быть от 1 до 10.');
+            guestsInput.classList.add('is-invalid');
         }
+
+        const formContainer = reservationForm.parentElement;
         
         if (errors.length > 0) {
-            alert('Errors:\n' + errors.join('\n'));
+            const errorList = errors.map(err => `<li>${err}</li>`).join('');
+            const errorHtml = document.createElement('div');
+            errorHtml.id = 'formFeedback';
+            errorHtml.className = 'alert alert-danger mt-4';
+            errorHtml.innerHTML = `<h5 class="alert-heading text-dark">🚫 Ошибка бронирования:</h5><ul class="text-dark">${errorList}</ul>`;
+            
+            formContainer.insertBefore(errorHtml, reservationForm);
+            
+            new Audio('sounds/error.mp3').play().catch(() => console.log('Error sound failed. Please add sounds/error.mp3')); 
+            
         } else {
-            alert('Reservation successful!');
-            form.reset();
+            
+            new Audio('sounds/success.mp3').play().catch(() => console.log('Success sound failed. Please add sounds/success.mp3'));
+
+            const successHtml = `
+                <div id="formFeedback" class="alert alert-success mt-4 p-5 text-center bg-success text-white">
+                    <h3 class="alert-heading text-white">🎉 Бронирование успешно!</h3>
+                    <p class="mb-0 text-white">Спасибо, <strong>${nameInput.value}</strong>! Ваш столик на ${guests} гостей забронирован на ${dateInput.value} в ${timeInput.value}.</p>
+                </div>
+            `;
+            reservationForm.style.display = 'none'; 
+            formContainer.innerHTML += successHtml;
         }
     });
 }
 
-// Task 2: Accordion
-const accordionHeaders = document.querySelectorAll('.accordion-header-custom');
 
-accordionHeaders.forEach(header => {
-    header.addEventListener('click', function() {
-        const item = this.parentElement;
-        const content = item.querySelector('.accordion-content-custom');
-        
-        if (item.classList.contains('active')) {
-            item.classList.remove('active');
-            content.style.maxHeight = null;
-        } else {
-            document.querySelectorAll('.accordion-item-custom').forEach(i => {
-                i.classList.remove('active');
-                i.querySelector('.accordion-content-custom').style.maxHeight = null;
+document.querySelectorAll('.accordion-item-custom').forEach(item => {
+    const header = item.querySelector('.accordion-header-custom');
+    const content = item.querySelector('.accordion-content-custom');
+
+    if (header) { 
+        header.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+
+            document.querySelectorAll('.accordion-item-custom').forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.accordion-content-custom').style.maxHeight = null;
+                }
             });
-            
-            item.classList.add('active');
-            content.style.maxHeight = content.scrollHeight + 'px';
-        }
-    });
+
+            if (isActive) {
+                item.classList.remove('active');
+                content.style.maxHeight = null;
+            } else {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
 });
 
-// Task 3: Popup Form
+
 const subscribeBtn = document.getElementById('subscribeBtn');
 const popupOverlay = document.getElementById('popupOverlay');
 const closePopup = document.getElementById('closePopup');
 const subscriptionForm = document.getElementById('subscriptionForm');
 
-if (subscribeBtn) {
-    subscribeBtn.addEventListener('click', function() {
+if (subscribeBtn && popupOverlay && closePopup && subscriptionForm) {
+    const closeForm = () => {
+        popupOverlay.classList.remove('active');
+        setTimeout(() => {
+            popupOverlay.style.display = 'none';
+        }, 300);
+    };
+
+    subscribeBtn.addEventListener('click', () => {
         popupOverlay.style.display = 'flex';
         setTimeout(() => popupOverlay.classList.add('active'), 10);
     });
-}
 
-if (closePopup) {
-    closePopup.addEventListener('click', function() {
-        popupOverlay.classList.remove('active');
-        setTimeout(() => popupOverlay.style.display = 'none', 300);
-    });
-}
+    closePopup.addEventListener('click', closeForm);
 
-if (popupOverlay) {
-    popupOverlay.addEventListener('click', function(e) {
-        if (e.target === popupOverlay) {
-            popupOverlay.classList.remove('active');
-            setTimeout(() => popupOverlay.style.display = 'none', 300);
+    popupOverlay.addEventListener('click', (event) => {
+        if (event.target === popupOverlay) {
+            closeForm();
         }
     });
-}
 
-if (subscriptionForm) {
-    subscriptionForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('popupEmail').value;
+    subscriptionForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
         
-        if (email.includes('@')) {
-            alert('Thank you for subscribing!');
-            subscriptionForm.reset();
-            popupOverlay.classList.remove('active');
-            setTimeout(() => popupOverlay.style.display = 'none', 300);
+        const emailInput = document.getElementById('popupEmail');
+        const userEmail = emailInput.value;
+        const formContent = document.getElementById('popupForm');
+
+        if (userEmail.includes('@') && userEmail.length > 5) {
+            new Audio('sounds/success_2.mp3').play().catch(() => console.log('Popup success sound failed. Please add sounds/success_2.mp3'));
+            formContent.innerHTML = `
+                <h2 class="text-white text-center mb-4">🎉 Вы подписаны!</h2>
+                <p class="text-white text-center mb-4">Спасибо, <strong>${userEmail}</strong>! Вы скоро получите наше первое эксклюзивное предложение.</p>
+                <button id="closeSuccess" class="btn btn-warning btn-lg w-100">Закрыть</button>
+            `;
+            document.getElementById('closeSuccess').addEventListener('click', closeForm);
         } else {
-            alert('Please enter valid email');
+            alert('Пожалуйста, введите корректный email адрес.');
+            new Audio('sounds/error.mp3').play().catch(() => console.log('Error sound failed. Please add sounds/error.mp3'));
         }
     });
 }
 
-// Task 4: Change Background Color
-const bgBtn = document.getElementById('bgChangeBtn');
-const colors = ['#242323', '#1a1a2e', '#16213e', '#0f3460', '#533483', '#2d4a2b', '#3d1f1f'];
+
+// =================================================================
+// TASK 4: Background Color Changer (Dynamic Style Changes, Arrays, Switch, Sound)
+// =================================================================
+const bgChangeBtn = document.getElementById('bgChangeBtn');
+const body = document.body;
+
+const colors = [
+    { code: '#242323', name: 'Original' },
+    { code: '#34495e', name: 'Dark Blue' },
+    { code: '#16a085', name: 'Dark Teal' },
+    { code: '#7f8c8d', name: 'Gray' },
+    { code: '#2c3e50', name: 'Midnight' },
+];
 let colorIndex = 0;
 
-if (bgBtn) {
-    bgBtn.addEventListener('click', function() {
+if (bgChangeBtn) {
+    bgChangeBtn.addEventListener('click', () => {
+        new Audio('sounds/click.mp3').play().catch(() => console.log('Click sound failed. Please add sounds/click.mp3')); 
+        
         colorIndex = (colorIndex + 1) % colors.length;
-        document.body.style.backgroundColor = colors[colorIndex];
+        const { code: newColor } = colors[colorIndex];
+        
+        body.style.backgroundColor = newColor;
+
+        let descriptiveName;
+        switch(newColor) {
+            case '#242323':
+                descriptiveName = 'Original';
+                break;
+            case '#34495e':
+                descriptiveName = 'Blue';
+                break;
+            case '#16a085':
+                descriptiveName = 'Teal';
+                break;
+            case '#7f8c8d':
+                descriptiveName = 'Gray';
+                break;
+            case '#2c3e50':
+                descriptiveName = 'Midnight';
+                break;
+            default:
+                descriptiveName = 'Default';
+        }
+        
+        bgChangeBtn.textContent = `🎨 color: ${descriptiveName}`;
     });
 }
 
-// Task 5: Date and Time
-const dateTimeEl = document.getElementById('currentDateTime');
+const dateTimeElement = document.getElementById('currentDateTime');
 
-if (dateTimeEl) {
-    function updateTime() {
+if (dateTimeElement) {
+    function updateDateTime() {
         const now = new Date();
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit'
-        };
-        dateTimeEl.textContent = now.toLocaleDateString('en-US', options);
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+
+        const dateString = now.toLocaleDateString('en-US', dateOptions);
+        const timeString = now.toLocaleTimeString('en-US', timeOptions); 
+
+        dateTimeElement.innerHTML = `<span class="fw-bold text-warning">${dateString}</span> | <span class="fw-bold text-warning">${timeString}</span>`;
     }
+   
+    updateDateTime();
     
-    updateTime();
-    setInterval(updateTime, 1000);
+    setInterval(updateDateTime, 1000);
 }

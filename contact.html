@@ -45,46 +45,45 @@
                     <h2>Reservation Form</h2>
                     <p class="text-warning mb-4">⚠️ All fields marked with * are required</p>
                     
-                    <!-- TASK 1: Form with JavaScript Validation -->
                     <form id="reservationForm" class="row g-3" novalidate>
                         <div class="col-md-6">
                             <label for="inputName" class="form-label">Name *</label>
-                            <input type="text" class="form-control bg-secondary text-white border-danger" id="inputName" placeholder="Your Name" required>
+                            <input type="text" class="form-control bg-secondary text-white" id="inputName" placeholder="Your Name" required>
                         </div>
                         
                         <div class="col-md-6">
                             <label for="inputEmail" class="form-label">Email *</label>
-                            <input type="email" class="form-control bg-secondary text-white border-danger" id="inputEmail" placeholder="example@email.com" required>
+                            <input type="email" class="form-control bg-secondary text-white" id="inputEmail" placeholder="example@email.com" required>
                         </div>
 
                         <div class="col-md-4">
                             <label for="inputDate" class="form-label">Date *</label>
-                            <input type="date" class="form-control bg-secondary text-white border-danger" id="inputDate" required>
+                            <input type="date" class="form-control bg-secondary text-white" id="inputDate" required>
                         </div>
                         
                         <div class="col-md-4">
                             <label for="inputTime" class="form-label">Time *</label>
-                            <input type="time" class="form-control bg-secondary text-white border-danger" id="inputTime" value="19:00" required>
+                            <input type="time" class="form-control bg-secondary text-white" id="inputTime" value="19:00" required>
                         </div>
                         
                         <div class="col-md-4">
                             <label for="inputGuests" class="form-label">Guests * (1-10)</label>
-                            <input type="number" class="form-control bg-secondary text-white border-danger" id="inputGuests" min="1" max="10" value="2" required>
+                            <input type="number" class="form-control bg-secondary text-white" id="inputGuests" min="1" max="10" value="2" required>
                         </div>
 
                         <div class="col-md-6">
                             <label for="inputPassword" class="form-label">Password * (min 8 characters)</label>
-                            <input type="password" class="form-control bg-secondary text-white border-danger" id="inputPassword" placeholder="Create password" required>
+                            <input type="password" class="form-control bg-secondary text-white" id="inputPassword" placeholder="Create password" required>
                         </div>
 
                         <div class="col-md-6">
                             <label for="inputPasswordConfirm" class="form-label">Confirm Password *</label>
-                            <input type="password" class="form-control bg-secondary text-white border-danger" id="inputPasswordConfirm" placeholder="Confirm password" required>
+                            <input type="password" class="form-control bg-secondary text-white" id="inputPasswordConfirm" placeholder="Confirm password" required>
                         </div>
 
                         <div class="col-12">
                             <label for="specialRequests" class="form-label">Special Requests</label>
-                            <textarea class="form-control bg-secondary text-white border-danger" id="specialRequests" rows="3" placeholder="Allergies, seating preference, etc."></textarea>
+                            <textarea class="form-control bg-secondary text-white" id="specialRequests" rows="3" placeholder="Allergies, seating preference, etc."></textarea>
                         </div>
 
                         <div class="col-12">
@@ -104,7 +103,7 @@
             </div>
         </div>
     </main>
- <div class="feature-buttons">
+    <div class="feature-buttons">
         <button id="bgChangeBtn" class="feature-btn btn-warning">
             🎨 Change Background
         </button>
