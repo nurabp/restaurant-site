@@ -11,16 +11,200 @@ body {
     background-color: #242323;
     color: #f1f1f1;
     line-height: 1.6;
-    /* Added transition for smooth background change (Animations) */
     transition: background-color 0.5s ease;
 }
 
-/* Стили для элементов, не управляемых Bootstrap */
+/* TASK 4: Scroll Progress Bar */
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #ffc107, #ff5722, #9c27b0, #3f51b5);
+    width: 0%;
+    z-index: 99999;
+    transition: width 0.1s ease;
+    box-shadow: 0 2px 10px rgba(255, 193, 7, 0.5);
+}
+
+/* TASK 5: Animated Counter Stats */
+#statsSection .stat-box {
+    border: 2px solid #ffc107;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#statsSection .stat-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(255, 193, 7, 0.3);
+}
+
+#statsSection .counter {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* TASK 1-2: Search Bar and Autocomplete */
+.search-container {
+    position: relative;
+}
+
+#menuSearchBar {
+    background-color: #2d2d2d;
+    color: #fff;
+    border: 2px solid #ffc107;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+}
+
+#menuSearchBar:focus {
+    background-color: #3d3d3d;
+    border-color: #ff9800;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+#autocompleteSuggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #2d2d2d;
+    border: 2px solid #ffc107;
+    border-top: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+#autocompleteSuggestions li {
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: #fff;
+}
+
+#autocompleteSuggestions li:hover {
+    background-color: #ffc107;
+    color: #000;
+}
+
+#searchResults {
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* TASK 3: Search Highlighting */
+.highlight {
+    background-color: #ffc107;
+    color: #000;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* TASK 6: Loading Spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+}
+
+/* TASK 7: Notification System */
+#notificationContainer {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 10000;
+    max-width: 400px;
+}
+
+.notification {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification-success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.notification-error {
+    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+}
+
+.notification-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.notification-warning {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+}
+
+.notification-message {
+    flex: 1;
+    font-weight: 500;
+}
+
+/* TASK 8: Copy to Clipboard Button */
+.copy-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.copy-btn.copied {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+/* TASK 9: Lazy Loading Images */
+.lazy-image {
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+
 .circle-img {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border: 5px solid #ffc107; /* Changed to warning color */
+    border: 5px solid #ffc107;
     display: block;
     margin: 20px auto;
     transition: transform 0.4s;
@@ -30,11 +214,7 @@ body {
     transform: scale(1.1) rotate(2deg);
 }
 
-/* ==========================================
-    RESPONSIVE DESIGN
-    ========================================== */
-
-/* Мобильные */
+/* Responsive Design */
 body {
     font-size: 14px; 
 }
@@ -51,7 +231,6 @@ main h2 {
     font-size: 1.1rem;
 }
 
-/* Планшеты */
 @media (min-width: 768px) {
     body {
         font-size: 16px; 
@@ -67,7 +246,6 @@ main h2 {
     }
 }
 
-/* Компьютеры */
 @media (min-width: 1024px) {
     body {
         font-size: 18px; 
@@ -83,9 +261,7 @@ main h2 {
     }
 }
 
-/* ==========================================
-    CARD IMAGES
-    ========================================== */
+/* Card Images */
 .card-img-top {
     height: 400px; 
     object-fit: cover; 
@@ -100,9 +276,7 @@ main h2 {
     height: 500px !important;
 }
 
-/* ==========================================
-    BESTSELLERS LAYOUT
-    ========================================== */
+/* Bestsellers Layout */
 .bestsellers .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -202,13 +376,16 @@ main h2 {
 .accordion-content-custom {
     max-height: 0;
     overflow: hidden;
-    /* Transition for slide down effect (Animations) */
     transition: max-height 0.3s ease-out; 
     padding: 0 20px;
 }
 
 .accordion-content-custom p {
     padding: 20px 0;
+}
+.accordion-item-custom.active .accordion-content-custom {
+    max-height: 500px; 
+    padding: 20px; 
 }
 
 /* Buttons */
@@ -237,15 +414,17 @@ main h2 {
     font-size: 18px;
 }
 
-/* Form Validation Custom Styles for Dark Theme (Used when JS adds .is-invalid class) */
+/* Form Validation */
 .form-control.is-invalid {
     border-color: #dc3545 !important; 
     padding-right: 2.25rem;
     background-image: none !important; 
 }
+
 .form-control.is-invalid:focus {
     box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.5);
 }
+
 .alert-danger ul {
     list-style-type: none;
     padding-left: 0;
