@@ -1,7 +1,8 @@
 $(document).ready(function(){
     console.log("jQuery is ready!");
     
-    // Call all functions
+    initThemeMode();
+    
     initSearch();
     initScrollProgress();
     initAnimatedCounter();
@@ -11,8 +12,139 @@ $(document).ready(function(){
     initLazyLoading();
 });
 
+function initThemeMode() {
+    if ($('#themeToggle').length === 0) {
+        $('.feature-buttons').prepend(`
+            <button id="themeToggle" class="feature-btn btn-warning mb-2">
+                🌙 Night Mode
+            </button>
+        `);
+    }
+    
+    var savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        applyDarkMode();
+    } else {
+        applyLightMode();
+    }
+    
+    $('#themeToggle').on('click', function() {
+        var currentTheme = localStorage.getItem('theme') || 'light';
+        
+        if (currentTheme === 'light') {
+            applyDarkMode();
+            localStorage.setItem('theme', 'dark');
+        } else {
+            applyLightMode();
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
 
-// TASK 1: Real-time Search
+function applyDarkMode() {
+    $('body').css({
+        'background-color': '#1a1a1a',
+        'color': '#f1f1f1'
+    });
+    
+    $('.form-control').css({
+        'background-color': '#3d4550',
+        'color': '#ffffff',
+        'border': '2px solid #6c757d'
+    });
+    
+    $('.card').css({
+        'background-color': '#2d2d2d',
+        'color': '#f1f1f1'
+    });
+    
+    $('.p-4.bg-secondary, .bg-secondary').css({
+        'background-color': '#4a5261',
+        'color': '#ffffff'
+    });
+    
+    $('.bg-secondary h3, .bg-secondary p').css('color', '#ffffff');
+    
+    $('.bg-dark').css('background-color', '#2d2d2d');
+    
+    $('.text-light, h1, h2, h3, p').css('color', '#f1f1f1');
+
+    $('.form-label').css('color', '#ffffff');
+    
+    $('.accordion-item-custom').css({
+        'background-color': '#2d2d2d',
+        'color': '#f1f1f1',
+        'border-color': '#ffc107'
+    });
+    
+    $('.accordion-header-custom h3').css('color', '#ffc107');
+    $('.accordion-content-custom p').css('color', '#f1f1f1');
+    $('.accordion-icon').css('color', '#ffc107');
+    
+    $('.stat-box').css({
+        'background-color': '#2d2d2d',
+        'color': '#f1f1f1'
+    });
+    
+    $('#themeToggle').html('☀️ Day Mode');
+
+    $('.navbar').css('background-color', '#1a1a1a');
+    
+    showNotification('info', '🌙 Dark mode activated');
+}
+
+function applyLightMode() {
+    $('body').css({
+        'background-color': '#f8f9fa',
+        'color': '#212529'
+    });
+    
+    $('.form-control').css({
+        'background-color': '#6c757d',
+        'color': '#ffffff',
+        'border': '2px solid #495057'
+    });
+    
+    $('.card').css({
+        'background-color': '#ffffff',
+        'color': '#212529'
+    });
+    
+    $('.p-4.bg-secondary, .bg-secondary').css({
+        'background-color': '#6c757d',
+        'color': '#ffffff'
+    });
+    
+    $('.bg-secondary h3, .bg-secondary p').css('color', '#ffffff');
+
+    $('.bg-dark').css('background-color', '#343a40');
+
+    $('.text-light, h1, h2, h3').css('color', '#212529');
+    $('p').css('color', '#495057');
+    
+    $('.form-label').css('color', '#212529');
+    
+    $('.accordion-item-custom').css({
+        'background-color': '#ffffff',
+        'color': '#212529'
+    });
+    
+    $('.accordion-header-custom h3').css('color', '#212529');
+    $('.accordion-content-custom p').css('color', '#495057');
+    
+    $('.stat-box').css({
+        'background-color': '#ffffff',
+        'color': '#212529',
+        'border': '2px solid #ffc107'
+    });
+
+    $('#themeToggle').html('🌙 Night Mode');
+    
+    $('.navbar').css('background-color', '#343a40');
+    
+    showNotification('info', '☀️ Light mode activated');
+}
+
 function initSearch() {
     if ($('.menu').length > 0 && $('#menuSearchBar').length === 0) {
         $('.menu').first().before(`
@@ -50,7 +182,6 @@ function initSearch() {
         highlightSearch(searchTerm);
     });
     
-    // TASK 2: Autocomplete
     var menuItems = [
         'Caesar Salad', 'Bruschetta', 'Shrimp Cocktail',
         'Grilled Steak', 'Pasta Carbonara', 'Cheesecake', 'Tiramisu'
@@ -84,7 +215,6 @@ function initSearch() {
     });
 }
 
-// TASK 3: Search Highlighting
 function highlightSearch(searchTerm) {
     $('.card-title, .card-text').each(function() {
         var element = $(this);
@@ -104,11 +234,6 @@ function highlightSearch(searchTerm) {
     });
 }
 
-// ============================================================
-// PART 2: UX Engagement Elements
-// ============================================================
-
-// TASK 4: Scroll Progress Bar
 function initScrollProgress() {
     if ($('#scrollProgress').length === 0) {
         $('body').prepend('<div id="scrollProgress"></div>');
@@ -123,7 +248,6 @@ function initScrollProgress() {
     });
 }
 
-// TASK 5: Animated Number Counter
 function initAnimatedCounter() {
     if ($('#currentDateTime').length > 0 && $('#statsSection').length === 0) {
         $('#currentDateTime').parent().after(`
@@ -153,7 +277,6 @@ function initAnimatedCounter() {
         `);
     }
     
-    // Animate on scroll
     var animated = false;
     $(window).on('scroll', function() {
         if ($('#statsSection').length > 0 && !animated) {
@@ -182,7 +305,6 @@ function initAnimatedCounter() {
     });
 }
 
-// TASK 6: Loading Spinner
 function initFormSubmit() {
     $('#reservationForm').on('submit', function(e) {
         e.preventDefault();
@@ -197,6 +319,9 @@ function initFormSubmit() {
         var email = $('#inputEmail').val();
         var password = $('#inputPassword').val();
         var passwordConfirm = $('#inputPasswordConfirm').val();
+        var date = $('#inputDate').val();
+        var time = $('#inputTime').val();
+        var guests = $('#inputGuests').val();
         
         var isValid = true;
         $('.form-control').removeClass('is-invalid');
@@ -205,8 +330,20 @@ function initFormSubmit() {
             $('#inputName').addClass('is-invalid');
             isValid = false;
         }
-        if (email.indexOf('@') === -1) {
+        if (email.indexOf('@') === -1 || email.length < 5) {
             $('#inputEmail').addClass('is-invalid');
+            isValid = false;
+        }
+        if (!date) {
+            $('#inputDate').addClass('is-invalid');
+            isValid = false;
+        }
+        if (!time) {
+            $('#inputTime').addClass('is-invalid');
+            isValid = false;
+        }
+        if (guests < 1 || guests > 10) {
+            $('#inputGuests').addClass('is-invalid');
             isValid = false;
         }
         if (password.length < 8) {
@@ -220,10 +357,10 @@ function initFormSubmit() {
         
         setTimeout(function() {
             if (isValid) {
-                showNotification('success', '✅ Reservation confirmed!');
+                showNotification('success', '✅ Reservation confirmed for ' + name + '!');
                 $('#reservationForm')[0].reset();
             } else {
-                showNotification('error', '❌ Please fix errors');
+                showNotification('error', '❌ Please fix all errors in the form');
             }
             
             $button.prop('disabled', false);
@@ -232,8 +369,6 @@ function initFormSubmit() {
     });
 }
 
-
-// TASK 7: Notification System
 function initNotifications() {
     if ($('#notificationContainer').length === 0) {
         $('body').append('<div id="notificationContainer"></div>');
@@ -253,6 +388,7 @@ function showNotification(type, message) {
     var icon = '✅';
     if (type === 'error') icon = '❌';
     if (type === 'info') icon = 'ℹ️';
+    if (type === 'warning') icon = '⚠️';
     
     var notification = $('<div class="notification notification-' + type + '"></div>');
     notification.append('<span class="notification-icon">' + icon + '</span>');
@@ -272,7 +408,6 @@ function showNotification(type, message) {
     }, 3000);
 }
 
-// TASK 8: Copy to Clipboard
 function initClipboard() {
     $('.accordion-content-custom p').each(function() {
         if ($(this).find('.copy-btn').length === 0) {
@@ -296,7 +431,6 @@ function initClipboard() {
     });
 }
 
-// TASK 9: Lazy Loading
 function initLazyLoading() {
     $('img').each(function() {
         var img = $(this);
@@ -331,8 +465,6 @@ function initLazyLoading() {
     loadImages();
 }
 
-
-// Accordion
 $('.accordion-item-custom').each(function() {
     var item = $(this);
     var header = item.find('.accordion-header-custom');
@@ -353,7 +485,6 @@ $('.accordion-item-custom').each(function() {
     });
 });
 
-// Popup
 $('#subscribeBtn').on('click', function() {
     $('#popupOverlay').fadeIn(300).addClass('active');
 });
@@ -377,7 +508,6 @@ $('#subscriptionForm').on('submit', function(e) {
     }
 });
 
-// Background changer
 var colors = [
     { code: '#242323', name: 'Original' },
     { code: '#34495e', name: 'Dark Blue' },
@@ -391,10 +521,9 @@ $('#bgChangeBtn').on('click', function() {
     colorIndex = (colorIndex + 1) % colors.length;
     $('body').css('background-color', colors[colorIndex].code);
     $(this).text('🎨 Color: ' + colors[colorIndex].name);
-    showNotification('info', '🎨 Background changed');
+    showNotification('info', '🎨 Background changed to ' + colors[colorIndex].name);
 });
 
-// DateTime
 function updateDateTime() {
     var now = new Date();
     var dateStr = now.toLocaleDateString('en-US', { 
@@ -419,3 +548,477 @@ if ($('#currentDateTime').length > 0) {
     updateDateTime();
     setInterval(updateDateTime, 1000);
 }
+
+let cart = [];
+
+$(document).ready(function(){
+    initCart();
+    updateCartDisplay();
+    
+    addOrderButtonsToMenu();
+});
+
+function initCart() {
+    if ($('#cartIcon').length === 0) {
+        $('.navbar-nav').append(`
+            <li class="nav-item ms-3">
+                <a class="nav-link position-relative" href="#" id="cartIcon">
+                    🛒 Cart
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">
+                        0
+                    </span>
+                </a>
+            </li>
+        `);
+    }
+    
+    if ($('#cartModal').length === 0) {
+        $('body').append(`
+            <div id="cartModal" class="cart-modal">
+                <div class="cart-modal-content">
+                    <div class="cart-header">
+                        <h2>🛒 Your Cart</h2>
+                        <button class="cart-close">&times;</button>
+                    </div>
+                    <div class="cart-body">
+                        <div id="cartItems"></div>
+                        <div class="cart-empty" style="display: none;">
+                            <p>Your cart is empty</p>
+                            <button class="btn btn-primary" onclick="closeCart()">Continue Shopping</button>
+                        </div>
+                    </div>
+                    <div class="cart-footer">
+                        <div class="cart-total">
+                            <strong>Total:</strong>
+                            <span id="cartTotal">$0</span>
+                        </div>
+                        <button class="btn btn-danger btn-lg w-100 mt-3" id="checkoutBtn">
+                            Proceed to Checkout
+                        </button>
+                        <button class="btn btn-outline-warning w-100 mt-2" onclick="clearCart()">
+                            Clear Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `);
+    }
+
+    if ($('#cartStyles').length === 0) {
+        $('head').append(`
+            <style id="cartStyles">
+                .cart-modal {
+                    display: none;
+                    position: fixed;
+                    z-index: 10001;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0,0,0,0.7);
+                    animation: fadeIn 0.3s;
+                }
+                
+                .cart-modal-content {
+                    position: relative;
+                    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+                    margin: 2% auto;
+                    padding: 0;
+                    width: 90%;
+                    max-width: 600px;
+                    max-height: 90vh;
+                    border-radius: 15px;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                    display: flex;
+                    flex-direction: column;
+                    animation: slideDown 0.3s;
+                }
+                
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes slideDown {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                
+                .cart-header {
+                    padding: 20px 30px;
+                    border-bottom: 2px solid #ffc107;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                
+                .cart-header h2 {
+                    color: #ffc107;
+                    margin: 0;
+                    font-size: 1.8rem;
+                }
+                
+                .cart-close {
+                    background: none;
+                    border: none;
+                    color: #fff;
+                    font-size: 2rem;
+                    cursor: pointer;
+                    transition: transform 0.2s;
+                }
+                
+                .cart-close:hover {
+                    transform: scale(1.2);
+                    color: #ffc107;
+                }
+                
+                .cart-body {
+                    padding: 20px 30px;
+                    overflow-y: auto;
+                    flex: 1;
+                    max-height: 50vh;
+                }
+                
+                .cart-item {
+                    background-color: #3d3d3d;
+                    padding: 15px;
+                    margin-bottom: 15px;
+                    border-radius: 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border: 2px solid transparent;
+                    transition: all 0.3s;
+                }
+                
+                .cart-item:hover {
+                    border-color: #ffc107;
+                    transform: translateX(5px);
+                }
+                
+                .cart-item-info {
+                    flex: 1;
+                }
+                
+                .cart-item-name {
+                    color: #ffc107;
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    margin-bottom: 5px;
+                }
+                
+                .cart-item-price {
+                    color: #fff;
+                    font-size: 1rem;
+                }
+                
+                .cart-item-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                
+                .quantity-control {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    background-color: #2d2d2d;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                }
+                
+                .quantity-btn {
+                    background: #ffc107;
+                    border: none;
+                    color: #000;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    font-weight: bold;
+                    transition: all 0.2s;
+                }
+                
+                .quantity-btn:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0 0 10px #ffc107;
+                }
+                
+                .quantity-display {
+                    color: #fff;
+                    font-weight: bold;
+                    min-width: 30px;
+                    text-align: center;
+                }
+                
+                .remove-btn {
+                    background: #dc3545;
+                    border: none;
+                    color: #fff;
+                    padding: 8px 15px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                
+                .remove-btn:hover {
+                    background: #c82333;
+                    transform: scale(1.05);
+                }
+                
+                .cart-footer {
+                    padding: 20px 30px;
+                    border-top: 2px solid #ffc107;
+                    background-color: #2d2d2d;
+                    border-radius: 0 0 15px 15px;
+                }
+                
+                .cart-total {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 1.5rem;
+                    color: #fff;
+                    margin-bottom: 10px;
+                }
+                
+                .cart-total span {
+                    color: #ffc107;
+                    font-weight: bold;
+                }
+                
+                .cart-empty {
+                    text-align: center;
+                    padding: 40px 20px;
+                    color: #adb5bd;
+                }
+                
+                .cart-empty p {
+                    font-size: 1.2rem;
+                    margin-bottom: 20px;
+                }
+                
+                #cartCount {
+                    font-size: 0.7rem;
+                    padding: 2px 6px;
+                }
+                
+                /* Animation for adding items */
+                @keyframes itemAdded {
+                    0% { transform: scale(0.8); opacity: 0; }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+                
+                .item-added-animation {
+                    animation: itemAdded 0.4s ease-out;
+                }
+            </style>
+        `);
+    }
+    
+    $('#cartIcon').on('click', function(e) {
+        e.preventDefault();
+        openCart();
+    });
+    
+    $('.cart-close').on('click', closeCart);
+    
+    $('#cartModal').on('click', function(e) {
+        if (e.target === this) {
+            closeCart();
+        }
+    });
+    
+    $('#checkoutBtn').on('click', handleCheckout);
+}
+
+function addOrderButtonsToMenu() {
+    $('.card').each(function() {
+        const $card = $(this);
+        const $footer = $card.find('.card-footer');
+    
+        if ($card.find('.order-now-btn').length > 0 || $footer.length === 0) {
+            return;
+        }
+        
+        const itemName = $card.find('.card-title').text().trim();
+        const itemPrice = $footer.find('.price').text().trim();
+        
+        if (itemName && itemPrice) {
+            $footer.append(`
+                <button class="btn btn-primary w-100 mt-2 order-now-btn">
+                    Order Now
+                </button>
+            `);
+        }
+    });
+    
+    $(document).off('click', '.order-now-btn, .btn-primary:contains("Order Now")');
+    $(document).on('click', '.order-now-btn, .btn-primary:contains("Order Now")', function(e) {
+        e.preventDefault();
+        
+        const $card = $(this).closest('.card');
+        const itemName = $card.find('.card-title').text().trim();
+        const itemPriceText = $card.find('.price, .text-warning.fw-bold').first().text().trim();
+        const itemPrice = parseFloat(itemPriceText.replace('$', ''));
+        const itemImage = $card.find('img').attr('src') || '';
+        
+        if (itemName && !isNaN(itemPrice)) {
+            addToCart({
+                name: itemName,
+                price: itemPrice,
+                image: itemImage
+            });
+        }
+    });
+}
+
+function addToCart(item) {
+    const existingItem = cart.find(cartItem => cartItem.name === item.name);
+    
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({
+            ...item,
+            quantity: 1,
+            id: Date.now()
+        });
+    }
+    
+    updateCartDisplay();
+    showNotification('success', `🛒 ${item.name} added to cart!`);
+
+    $('#cartIcon').addClass('item-added-animation');
+    setTimeout(() => {
+        $('#cartIcon').removeClass('item-added-animation');
+    }, 400);
+}
+
+function removeFromCart(itemId) {
+    const item = cart.find(item => item.id === itemId);
+    cart = cart.filter(item => item.id !== itemId);
+    
+    updateCartDisplay();
+    if (item) {
+        showNotification('info', `${item.name} removed from cart`);
+    }
+}
+
+function updateQuantity(itemId, change) {
+    const item = cart.find(item => item.id === itemId);
+    
+    if (item) {
+        item.quantity += change;
+        
+        if (item.quantity <= 0) {
+            removeFromCart(itemId);
+        } else {
+            updateCartDisplay();
+        }
+    }
+}
+
+function updateCartDisplay() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    
+    $('#cartCount').text(totalItems);
+    
+    if (totalItems > 0) {
+        $('#cartCount').show();
+    } else {
+        $('#cartCount').hide();
+    }
+    
+    const $cartItems = $('#cartItems');
+    const $cartEmpty = $('.cart-empty');
+    
+    if (cart.length === 0) {
+        $cartItems.hide();
+        $cartEmpty.show();
+        $('#cartTotal').text('$0');
+        return;
+    }
+    
+    $cartItems.show();
+    $cartEmpty.hide();
+    
+    $cartItems.empty();
+    
+    cart.forEach(item => {
+        const itemTotal = (item.price * item.quantity).toFixed(2);
+        
+        $cartItems.append(`
+            <div class="cart-item" data-item-id="${item.id}">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">$${item.price.toFixed(2)} × ${item.quantity} = $${itemTotal}</div>
+                </div>
+                <div class="cart-item-controls">
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <span class="quantity-display">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${item.id})">🗑️</button>
+                </div>
+            </div>
+        `);
+    });
+    
+    $('#cartTotal').text('$' + totalPrice.toFixed(2));
+}
+
+function openCart() {
+    $('#cartModal').fadeIn(300);
+    $('body').css('overflow', 'hidden');
+}
+
+function closeCart() {
+    $('#cartModal').fadeOut(300);
+    $('body').css('overflow', 'auto');
+}
+
+function clearCart() {
+    if (cart.length === 0) return;
+    
+    if (confirm('Are you sure you want to clear your cart?')) {
+        cart = [];
+        updateCartDisplay();
+        showNotification('info', 'Cart cleared');
+    }
+}
+
+function handleCheckout() {
+    if (cart.length === 0) {
+        showNotification('warning', '⚠️ Your cart is empty!');
+        return;
+    }
+    
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    showNotification('success', `🎉 Order placed! Total: $${totalPrice.toFixed(2)} (${itemCount} items)`);
+
+    console.log('Order Details:', {
+        items: cart,
+        total: totalPrice,
+        timestamp: new Date()
+    });
+    
+    cart = [];
+    updateCartDisplay();
+    closeCart();
+    
+    setTimeout(() => {
+        showNotification('info', '✉️ Confirmation email sent!');
+    }, 1500);
+}
+
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.updateQuantity = updateQuantity;
+window.clearCart = clearCart;
+window.openCart = openCart;
+window.closeCart = closeCart;

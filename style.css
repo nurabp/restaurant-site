@@ -11,8 +11,389 @@ body {
     background-color: #242323;
     color: #f1f1f1;
     line-height: 1.6;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
+
+/* ============================================
+   ФИКСИРОВАННЫЕ ЦВЕТА ДЛЯ ЗАГОЛОВКОВ
+   ============================================ */
+
+/* Все основные заголовки страниц - ФИКСИРОВАННЫЙ ЦВЕТ */
+h1.text-light,
+h2.text-center.mb-5.text-light,
+h2.text-center.mb-4.text-light,
+h2.text-light.mb-4,
+section h2.text-light,
+main h1.text-light,
+main h2.text-light {
+    color: #0055ff !important;
+}
+
+/* Заголовки остаются синими в обеих темах */
+body.light-mode h1.text-light,
+body.light-mode h2.text-center.mb-5.text-light,
+body.light-mode h2.text-center.mb-4.text-light,
+body.light-mode h2.text-light.mb-4,
+body.light-mode section h2.text-light,
+body.light-mode main h1.text-light,
+body.light-mode main h2.text-light {
+    color: #0055ff !important;
+}
+
+/* ============================================
+   КРИТИЧЕСКИЕ ИСПРАВЛЕНИЯ КОНТРАСТНОСТИ
+   ============================================ */
+
+/* WHY CHOOSE US - ТЕМНАЯ ТЕМА */
+.p-4.rounded.shadow.bg-secondary,
+.col-12.col-lg-6 .p-4.rounded.shadow.bg-secondary {
+    background-color: #4a5261 !important;
+}
+
+.p-4.rounded.shadow.bg-secondary h3,
+.p-4.rounded.shadow.bg-secondary p {
+    color: #ffffff !important;
+}
+
+/* WHY CHOOSE US - СВЕТЛАЯ ТЕМА */
+body.light-mode .p-4.rounded.shadow.bg-secondary,
+body.light-mode .col-12.col-lg-6 .p-4.rounded.shadow.bg-secondary {
+    background-color: #e9ecef !important;
+}
+
+body.light-mode .p-4.rounded.shadow.bg-secondary h3 {
+    color: #212529 !important;
+    font-weight: 600;
+}
+
+body.light-mode .p-4.rounded.shadow.bg-secondary p {
+    color: #495057 !important;
+}
+
+/* ФОРМЫ - ТЕМНАЯ ТЕМА */
+input.form-control,
+textarea.form-control,
+select.form-control {
+    background-color: #3d4550 !important;
+    color: #ffffff !important;
+    border: 2px solid #6c757d !important;
+    padding: 12px 16px;
+}
+
+input.form-control::placeholder,
+textarea.form-control::placeholder {
+    color: #adb5bd !important;
+    opacity: 1;
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+    background-color: #4a5261 !important;
+    border-color: #ffc107 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    outline: none;
+}
+
+label.form-label {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+.form-check-label {
+    color: #ffffff !important;
+}
+
+/* ФОРМЫ - СВЕТЛАЯ ТЕМА */
+body.light-mode input.form-control,
+body.light-mode textarea.form-control,
+body.light-mode select.form-control {
+    background-color: #e9ecef !important;
+    color: #212529 !important;
+    border: 2px solid #ced4da !important;
+}
+
+body.light-mode input.form-control::placeholder,
+body.light-mode textarea.form-control::placeholder {
+    color: #6c757d !important;
+}
+
+body.light-mode input.form-control:focus,
+body.light-mode textarea.form-control:focus {
+    background-color: #dee2e6 !important;
+    border-color: #0055ff !important;
+}
+
+body.light-mode label.form-label {
+    color: #212529 !important;
+}
+
+body.light-mode .form-check-label {
+    color: #212529 !important;
+}
+
+/* АККОРДЕОН - ТЕМНАЯ ТЕМА */
+.accordion-item-custom {
+    background-color: #2d2d2d !important;
+    border: 2px solid #ffc107 !important;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.accordion-header-custom {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header-custom:hover {
+    background-color: #3d3d3d;
+}
+
+.accordion-header-custom h3 {
+    color: #ffc107 !important;
+    margin: 0;
+}
+
+.accordion-icon {
+    font-size: 24px;
+    transition: transform 0.3s;
+    color: #ffc107 !important;
+}
+
+.accordion-item-custom.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content-custom {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 20px;
+}
+
+.accordion-content-custom p {
+    padding: 20px 0;
+    color: #f1f1f1 !important;
+}
+
+.accordion-item-custom.active .accordion-content-custom {
+    max-height: 500px;
+    padding: 20px;
+}
+
+/* АККОРДЕОН - СВЕТЛАЯ ТЕМА */
+body.light-mode .accordion-item-custom {
+    background-color: #ffffff !important;
+    border: 2px solid #dee2e6 !important;
+}
+
+body.light-mode .accordion-header-custom:hover {
+    background-color: #f8f9fa;
+}
+
+body.light-mode .accordion-header-custom h3 {
+    color: #212529 !important;
+}
+
+body.light-mode .accordion-icon {
+    color: #212529 !important;
+}
+
+body.light-mode .accordion-content-custom p {
+    color: #495057 !important;
+}
+
+/* КАРТОЧКИ МЕНЮ - ТЕМНАЯ ТЕМА */
+.card.bg-dark.text-white {
+    background-color: #2d2d2d !important;
+    border: 1px solid #ffc107;
+}
+
+.card.bg-dark .card-title,
+.card.bg-dark .card-text {
+    color: #ffffff !important;
+}
+
+/* КАРТОЧКИ МЕНЮ - СВЕТЛАЯ ТЕМА */
+body.light-mode .card.bg-dark {
+    background-color: #ffffff !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+body.light-mode .card.bg-dark .card-title {
+    color: #212529 !important;
+}
+
+body.light-mode .card.bg-dark .card-text {
+    color: #495057 !important;
+}
+
+body.light-mode .card.bg-dark .card-footer {
+    background-color: #f8f9fa !important;
+}
+
+body.light-mode .card.bg-dark .price {
+    color: #ffc107 !important;
+}
+
+/* FIND US / RESERVATION SECTIONS */
+.col-lg-4 .p-4.bg-dark,
+.col-lg-8 .p-4.bg-dark {
+    background-color: #2d2d2d !important;
+}
+
+.p-4.bg-dark h2,
+.p-4.bg-dark p {
+    color: #ffffff !important;
+}
+
+body.light-mode .col-lg-4 .p-4.bg-dark,
+body.light-mode .col-lg-8 .p-4.bg-dark {
+    background-color: #343a40 !important;
+}
+
+body.light-mode .p-4.bg-dark h2,
+body.light-mode .p-4.bg-dark p {
+    color: #ffffff !important;
+}
+
+/* ABOUT PAGE - OUR ACHIEVEMENTS */
+aside.bg-secondary {
+    background-color: #4a5261 !important;
+}
+
+aside.bg-secondary h3,
+aside.bg-secondary p {
+    color: #ffffff !important;
+}
+
+body.light-mode aside.bg-secondary {
+    background-color: #e9ecef !important;
+}
+
+body.light-mode aside.bg-secondary h3 {
+    color: #212529 !important;
+}
+
+body.light-mode aside.bg-secondary p {
+    color: #495057 !important;
+}
+
+/* СТАТИСТИКА */
+.stat-box {
+    background-color: #2d2d2d !important;
+    border: 2px solid #ffc107 !important;
+}
+
+.stat-box h3 {
+    color: #ffc107 !important;
+}
+
+.stat-box p {
+    color: #ffffff !important;
+}
+
+body.light-mode .stat-box {
+    background-color: #ffffff !important;
+}
+
+body.light-mode .stat-box h3 {
+    color: #ffc107 !important;
+}
+
+body.light-mode .stat-box p {
+    color: #212529 !important;
+}
+
+/* ПОИСК МЕНЮ */
+#menuSearchBar {
+    background-color: #3d4550 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffc107 !important;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+}
+
+#menuSearchBar::placeholder {
+    color: #adb5bd !important;
+}
+
+#menuSearchBar:focus {
+    background-color: #4a5261 !important;
+    border-color: #ff9800 !important;
+}
+
+body.light-mode #menuSearchBar {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border: 2px solid #ced4da !important;
+}
+
+body.light-mode #menuSearchBar::placeholder {
+    color: #6c757d !important;
+}
+
+/* ============================================
+   WCAG AA ACCESSIBILITY
+   ============================================ */
+
+/* Минимальный контраст 4.5:1 для обычного текста */
+body {
+    color: #f1f1f1;
+}
+
+body.light-mode {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+body.light-mode h1,
+body.light-mode h2,
+body.light-mode h3 {
+    color: #212529;
+}
+
+body.light-mode p {
+    color: #495057;
+}
+
+/* Кнопки с хорошим контрастом */
+.btn {
+    font-weight: 500;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #000;
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    color: #000;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.btn-outline-light {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+.btn-outline-light:hover {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* ============================================
+   ОСТАЛЬНЫЕ СТИЛИ
+   ============================================ */
 
 /* TASK 4: Scroll Progress Bar */
 #scrollProgress {
@@ -29,8 +410,7 @@ body {
 
 /* TASK 5: Animated Counter Stats */
 #statsSection .stat-box {
-    border: 2px solid #ffc107;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
 }
 
 #statsSection .stat-box:hover {
@@ -47,20 +427,6 @@ body {
 /* TASK 1-2: Search Bar and Autocomplete */
 .search-container {
     position: relative;
-}
-
-#menuSearchBar {
-    background-color: #2d2d2d;
-    color: #fff;
-    border: 2px solid #ffc107;
-    padding: 15px 20px;
-    font-size: 1.1rem;
-}
-
-#menuSearchBar:focus {
-    background-color: #3d3d3d;
-    border-color: #ff9800;
-    box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
 }
 
 #autocompleteSuggestions {
@@ -90,6 +456,15 @@ body {
 #autocompleteSuggestions li:hover {
     background-color: #ffc107;
     color: #000;
+}
+
+body.light-mode #autocompleteSuggestions {
+    background-color: #ffffff;
+    border-color: #dee2e6;
+}
+
+body.light-mode #autocompleteSuggestions li {
+    color: #212529;
 }
 
 #searchResults {
@@ -199,7 +574,7 @@ body {
     opacity: 1;
 }
 
-
+/* Images */
 .circle-img {
     width: 200px;
     height: 200px;
@@ -274,6 +649,12 @@ main h2 {
 
 .carousel-inner .carousel-item img {
     height: 500px !important;
+    object-fit: cover;
+}
+
+/* Cards - Theme Support */
+.card {
+    transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
 /* Bestsellers Layout */
@@ -343,49 +724,11 @@ main h2 {
     color: white;
     font-size: 30px;
     cursor: pointer;
+    transition: transform 0.2s;
 }
 
-/* Accordion */
-.accordion-item-custom {
-    background-color: #2d2d2d;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.accordion-header-custom {
-    padding: 20px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-}
-
-.accordion-header-custom:hover {
-    background-color: #3d3d3d;
-}
-
-.accordion-icon {
-    font-size: 24px;
-    transition: transform 0.3s;
-}
-
-.accordion-item-custom.active .accordion-icon {
-    transform: rotate(180deg);
-}
-
-.accordion-content-custom {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out; 
-    padding: 0 20px;
-}
-
-.accordion-content-custom p {
-    padding: 20px 0;
-}
-.accordion-item-custom.active .accordion-content-custom {
-    max-height: 500px; 
-    padding: 20px; 
+.popup-close:hover {
+    transform: scale(1.2);
 }
 
 /* Buttons */
@@ -394,6 +737,9 @@ main h2 {
     bottom: 20px;
     right: 20px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .feature-btn {
@@ -401,6 +747,13 @@ main h2 {
     border: none;
     border-radius: 50px;
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 500;
+}
+
+.feature-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* DateTime */
@@ -414,19 +767,75 @@ main h2 {
     font-size: 18px;
 }
 
-/* Form Validation */
+/* Form Validation - WCAG AA Compliant Colors */
 .form-control.is-invalid {
     border-color: #dc3545 !important; 
     padding-right: 2.25rem;
     background-image: none !important; 
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 .form-control.is-invalid:focus {
     box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.5);
 }
 
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+    color: #842029;
+}
+
 .alert-danger ul {
     list-style-type: none;
     padding-left: 0;
     margin-top: 10px;
+}
+
+/* Navbar */
+.navbar {
+    transition: background-color 0.5s ease;
+}
+
+/* Accessibility Improvements */
+.btn:focus,
+.form-control:focus,
+.navbar-toggler:focus {
+    outline: 2px solid #ffc107;
+    outline-offset: 2px;
+}
+
+/* Skip to main content for screen readers */
+.skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #ffc107;
+    color: #000;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100000;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .card {
+        border-width: 3px;
+    }
+    
+    .btn {
+        border-width: 2px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
