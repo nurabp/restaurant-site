@@ -14,11 +14,6 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* ============================================
-   ФИКСИРОВАННЫЕ ЦВЕТА ДЛЯ ЗАГОЛОВКОВ
-   ============================================ */
-
-/* Все основные заголовки страниц - ФИКСИРОВАННЫЙ ЦВЕТ */
 h1.text-light,
 h2.text-center.mb-5.text-light,
 h2.text-center.mb-4.text-light,
@@ -29,7 +24,6 @@ main h2.text-light {
     color: #0055ff !important;
 }
 
-/* Заголовки остаются синими в обеих темах */
 body.light-mode h1.text-light,
 body.light-mode h2.text-center.mb-5.text-light,
 body.light-mode h2.text-center.mb-4.text-light,
@@ -40,11 +34,6 @@ body.light-mode main h2.text-light {
     color: #0055ff !important;
 }
 
-/* ============================================
-   КРИТИЧЕСКИЕ ИСПРАВЛЕНИЯ КОНТРАСТНОСТИ
-   ============================================ */
-
-/* WHY CHOOSE US - ТЕМНАЯ ТЕМА */
 .p-4.rounded.shadow.bg-secondary,
 .col-12.col-lg-6 .p-4.rounded.shadow.bg-secondary {
     background-color: #4a5261 !important;
@@ -55,7 +44,6 @@ body.light-mode main h2.text-light {
     color: #ffffff !important;
 }
 
-/* WHY CHOOSE US - СВЕТЛАЯ ТЕМА */
 body.light-mode .p-4.rounded.shadow.bg-secondary,
 body.light-mode .col-12.col-lg-6 .p-4.rounded.shadow.bg-secondary {
     background-color: #e9ecef !important;
@@ -70,7 +58,6 @@ body.light-mode .p-4.rounded.shadow.bg-secondary p {
     color: #495057 !important;
 }
 
-/* ФОРМЫ - ТЕМНАЯ ТЕМА */
 input.form-control,
 textarea.form-control,
 select.form-control {
@@ -104,7 +91,6 @@ label.form-label {
     color: #ffffff !important;
 }
 
-/* ФОРМЫ - СВЕТЛАЯ ТЕМА */
 body.light-mode input.form-control,
 body.light-mode textarea.form-control,
 body.light-mode select.form-control {
@@ -132,7 +118,6 @@ body.light-mode .form-check-label {
     color: #212529 !important;
 }
 
-/* АККОРДЕОН - ТЕМНАЯ ТЕМА */
 .accordion-item-custom {
     background-color: #2d2d2d !important;
     border: 2px solid #ffc107 !important;
@@ -184,7 +169,6 @@ body.light-mode .form-check-label {
     padding: 20px;
 }
 
-/* АККОРДЕОН - СВЕТЛАЯ ТЕМА */
 body.light-mode .accordion-item-custom {
     background-color: #ffffff !important;
     border: 2px solid #dee2e6 !important;
@@ -206,7 +190,6 @@ body.light-mode .accordion-content-custom p {
     color: #495057 !important;
 }
 
-/* КАРТОЧКИ МЕНЮ - ТЕМНАЯ ТЕМА */
 .card.bg-dark.text-white {
     background-color: #2d2d2d !important;
     border: 1px solid #ffc107;
@@ -217,7 +200,6 @@ body.light-mode .accordion-content-custom p {
     color: #ffffff !important;
 }
 
-/* КАРТОЧКИ МЕНЮ - СВЕТЛАЯ ТЕМА */
 body.light-mode .card.bg-dark {
     background-color: #ffffff !important;
     border: 1px solid #dee2e6 !important;
@@ -239,7 +221,6 @@ body.light-mode .card.bg-dark .price {
     color: #ffc107 !important;
 }
 
-/* FIND US / RESERVATION SECTIONS */
 .col-lg-4 .p-4.bg-dark,
 .col-lg-8 .p-4.bg-dark {
     background-color: #2d2d2d !important;
@@ -260,7 +241,6 @@ body.light-mode .p-4.bg-dark p {
     color: #ffffff !important;
 }
 
-/* ABOUT PAGE - OUR ACHIEVEMENTS */
 aside.bg-secondary {
     background-color: #4a5261 !important;
 }
@@ -282,7 +262,6 @@ body.light-mode aside.bg-secondary p {
     color: #495057 !important;
 }
 
-/* СТАТИСТИКА */
 .stat-box {
     background-color: #2d2d2d !important;
     border: 2px solid #ffc107 !important;
@@ -308,7 +287,6 @@ body.light-mode .stat-box p {
     color: #212529 !important;
 }
 
-/* ПОИСК МЕНЮ */
 #menuSearchBar {
     background-color: #3d4550 !important;
     color: #ffffff !important;
@@ -336,11 +314,7 @@ body.light-mode #menuSearchBar::placeholder {
     color: #6c757d !important;
 }
 
-/* ============================================
-   WCAG AA ACCESSIBILITY
-   ============================================ */
 
-/* Минимальный контраст 4.5:1 для обычного текста */
 body {
     color: #f1f1f1;
 }
@@ -360,7 +334,6 @@ body.light-mode p {
     color: #495057;
 }
 
-/* Кнопки с хорошим контрастом */
 .btn {
     font-weight: 500;
 }
@@ -391,11 +364,7 @@ body.light-mode p {
     color: #212529;
 }
 
-/* ============================================
-   ОСТАЛЬНЫЕ СТИЛИ
-   ============================================ */
 
-/* TASK 4: Scroll Progress Bar */
 #scrollProgress {
     position: fixed;
     top: 0;
@@ -408,7 +377,6 @@ body.light-mode p {
     box-shadow: 0 2px 10px rgba(255, 193, 7, 0.5);
 }
 
-/* TASK 5: Animated Counter Stats */
 #statsSection .stat-box {
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
 }
@@ -424,7 +392,6 @@ body.light-mode p {
     margin-bottom: 10px;
 }
 
-/* TASK 1-2: Search Bar and Autocomplete */
 .search-container {
     position: relative;
 }
@@ -491,12 +458,15 @@ body.light-mode #autocompleteSuggestions li {
 /* TASK 7: Notification System */
 #notificationContainer {
     position: fixed;
-    top: 80px;
+    top: 70px !important; /* ← ИСПРАВЛЕНО */
+    z-index: 9999 !important;
     right: 20px;
-    z-index: 10000;
     max-width: 400px;
+    
 }
-
+.navbar {
+    z-index: 10000 !important;
+}
 .notification {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -652,12 +622,10 @@ main h2 {
     object-fit: cover;
 }
 
-/* Cards - Theme Support */
 .card {
     transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
-/* Bestsellers Layout */
 .bestsellers .cards-container {
     display: flex;
     flex-wrap: wrap;
@@ -837,5 +805,55 @@ main h2 {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+    }
+}
+/* AUTH MODAL SCROLL FIX */
+.auth-modal {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.auth-modal-content {
+    margin: 5% auto !important;
+    max-height: none !important;
+    overflow-y: visible !important;
+}
+
+/* Mobile Fix */
+@media (max-width: 767px) {
+    .auth-modal {
+        padding: 10px 0;
+    }
+    
+    .auth-modal-content {
+        margin: 20px auto !important;
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .auth-form button[type="submit"] {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .auth-form .form-control {
+        font-size: 16px !important; /* Предотвращает zoom на iOS */
+    }
+}
+
+/* Small Screens */
+@media (max-width: 380px) {
+    .auth-modal-content {
+        margin: 10px auto !important;
+        padding: 15px;
+    }
+}
+
+/* Landscape Mode */
+@media (max-width: 767px) and (orientation: landscape) {
+    .auth-modal-content {
+        margin: 10px auto !important;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 }

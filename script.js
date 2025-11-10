@@ -1022,3 +1022,859 @@ window.updateQuantity = updateQuantity;
 window.clearCart = clearCart;
 window.openCart = openCart;
 window.closeCart = closeCart;
+// ====================================================================
+// НОВЫЙ БЛОК: Инициализация и Управление Звуками
+// ====================================================================
+
+// Создаем глобальные аудио-объекты
+const clickSound = new Audio('sounds/click.mp3'); 
+const successSound = new Audio('sounds/success.mp3'); 
+const errorSound = new Audio('sounds/error.mp3');
+
+function playSound(audioElement) {
+    audioElement.currentTime = 0; // Сбрасываем звук, чтобы он мог быть воспроизведен снова, даже если он еще играет
+    audioElement.play().catch(e => console.error("Could not play sound:", e));
+}
+
+// ====================================================================
+// Инициализация звуков в document.ready
+// ====================================================================
+$(document).ready(function(){
+    console.log("jQuery is ready!");
+    
+    // Новая функция для предзагрузки звуков (опционально)
+    initSounds(); 
+
+    initThemeMode();
+    
+    initSearch();
+    initScrollProgress();
+    initAnimatedCounter();
+    initFormSubmit();
+    initNotifications();
+    initClipboard();
+    initLazyLoading();
+
+    initCart();
+    updateCartDisplay();
+    addOrderButtonsToMenu();
+});
+
+// ====================================================================
+// MOBILE & TABLET JAVASCRIPT FIXES
+// ====================================================================
+
+$(document).ready(function() {
+    initMobileFixes();
+});
+
+function initMobileFixes() {
+    
+    // 1. DETECT MOBILE DEVICE
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTablet = /(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(navigator.userAgent);
+    
+    if (isMobile || isTablet) {
+        $('body').addClass('is-mobile-device');
+    }
+    
+    // 2. FIX VIEWPORT FOR iOS
+    fixIOSViewport();
+    
+    // 3. PREVENT BODY SCROLL WHEN MODAL OPEN
+    fixModalScroll();
+    
+    // 4. FIX NAVBAR COLLAPSE ON MOBILE
+    fixNavbarMobile();
+    
+    // 5. TOUCH-FRIENDLY STAR RATING
+    fixStarRatingTouch();
+    
+    // 6. PREVENT DOUBLE-TAP ZOOM ON BUTTONS
+    preventDoubleTapZoom();
+    
+    // 7. FIX AUTOCOMPLETE POSITION ON MOBILE
+    fixAutocompletePosition();
+    
+    // 8. ADD SWIPE GESTURES FOR MODALS
+    addSwipeToClose();
+    
+    // 9. FIX CART MODAL ON MOBILE
+    fixCartModalMobile();
+    
+    // 10. OPTIMIZE IMAGES FOR MOBILE
+    optimizeImagesForMobile();
+}
+
+// ====================================================================
+// 1. FIX iOS VIEWPORT ISSUES
+// ====================================================================
+function fixIOSViewport() {
+    // Prevent zoom on input focus (iOS)
+    $('input, textarea, select').on('focus', function() {
+        $('meta[name=viewport]').attr('content', 
+            'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+        );
+    });
+    
+    $('input, textarea, select').on('blur', function() {
+        $('meta[name=viewport]').attr('content', 
+            'width=device-width, initial-scale=1.0'
+        );
+    });
+    
+    // Fix iOS Safari bottom bar issue
+    function setVH() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    setVH();
+    $(window).on('resize', setVH);
+    $(window).on('orientationchange', setVH);
+}
+
+// ====================================================================
+// 2. FIX MODAL SCROLL ISSUES
+// ====================================================================
+function fixModalScroll() {
+    let scrollPosition = 0;
+    
+    // Override original modal open function
+    const originalOpenAuthModal = window.openAuthModal;
+    window.openAuthModal = function(type) {
+        scrollPosition = $(window).scrollTop();
+        $('body').css({
+            'overflow': 'hidden',
+            'position': 'fixed',
+            'top': `-${scrollPosition}px`,
+            'width': '100%'
+        });
+        if (typeof originalOpenAuthModal === 'function') {
+            originalOpenAuthModal(type);
+        } else {
+            $('#authModal').fadeIn(300);
+            switchAuthForm(type);
+        }
+    };
+    
+    // Override original modal close function
+    const originalCloseAuthModal = window.closeAuthModal;
+    window.closeAuthModal = function() {
+        $('body').css({
+            'overflow': '',
+            'position': '',
+            'top': '',
+            'width': ''
+        });
+        $(window).scrollTop(scrollPosition);
+        if (typeof originalCloseAuthModal === 'function') {
+            originalCloseAuthModal();
+        } else {
+            $('#authModal').fadeOut(300);
+        }
+    };
+    
+    // Same for cart modal
+    const originalOpenCart = window.openCart;
+    window.openCart = function() {
+        scrollPosition = $(window).scrollTop();
+        $('body').css({
+            'overflow': 'hidden',
+            'position': 'fixed',
+            'top': `-${scrollPosition}px`,
+            'width': '100%'
+        });
+        if (typeof originalOpenCart === 'function') {
+            originalOpenCart();
+        } else {
+            $('#cartModal').fadeIn(300);
+        }
+    };
+    
+    const originalCloseCart = window.closeCart;
+    window.closeCart = function() {
+        $('body').css({
+            'overflow': '',
+            'position': '',
+            'top': '',
+            'width': ''
+        });
+        $(window).scrollTop(scrollPosition);
+        if (typeof originalCloseCart === 'function') {
+            originalCloseCart();
+        } else {
+            $('#cartModal').fadeOut(300);
+        }
+    };
+}
+
+// ====================================================================
+// 3. FIX NAVBAR ON MOBILE
+// ====================================================================
+function fixNavbarMobile() {
+    // Close navbar when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.navbar').length) {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
+    
+    // Close navbar when clicking on nav link
+    $('.nav-link').on('click', function() {
+        if ($(window).width() < 768) {
+            $('.navbar-collapse').collapse('hide');
+        }
+    });
+    
+    // Add smooth scroll for anchor links on mobile
+    $('a[href^="#"]').on('click', function(e) {
+        const target = $(this.hash);
+        if (target.length) {
+            e.preventDefault();
+            $('.navbar-collapse').collapse('hide');
+            
+            $('html, body').animate({
+                scrollTop: target.offset().top - 70
+            }, 500);
+        }
+    });
+}
+
+// ====================================================================
+// 4. TOUCH-FRIENDLY STAR RATING
+// ====================================================================
+function fixStarRatingTouch() {
+    // Remove hover effects on touch devices
+    if ('ontouchstart' in window) {
+        $(document).off('mouseenter mouseleave', '.star, .stars');
+        
+        // Use touchstart instead of click for better responsiveness
+        $(document).on('touchstart', '.star', function(e) {
+            e.preventDefault();
+            $(this).trigger('click');
+        });
+    }
+}
+
+// ====================================================================
+// 5. PREVENT DOUBLE-TAP ZOOM ON BUTTONS
+// ====================================================================
+function preventDoubleTapZoom() {
+    let lastTouchEnd = 0;
+    
+    $(document).on('touchend', function(event) {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    });
+    
+    // Add touch-action CSS to buttons
+    $('button, .btn, a').css('touch-action', 'manipulation');
+}
+
+// ====================================================================
+// 6. FIX AUTOCOMPLETE POSITION
+// ====================================================================
+function fixAutocompletePosition() {
+    $('#menuSearchBar').on('focus', function() {
+        if ($(window).width() < 768) {
+            // Scroll input into view on mobile
+            setTimeout(() => {
+                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+    });
+    
+    // Adjust autocomplete position for mobile
+    $(window).on('resize', function() {
+        if ($('#autocompleteSuggestions').is(':visible')) {
+            const searchBar = $('#menuSearchBar');
+            const position = searchBar.offset();
+            
+            $('#autocompleteSuggestions').css({
+                'top': searchBar.outerHeight() + 'px',
+                'width': searchBar.outerWidth() + 'px'
+            });
+        }
+    });
+}
+
+// ====================================================================
+// 7. ADD SWIPE GESTURES TO CLOSE MODALS
+// ====================================================================
+function addSwipeToClose() {
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    $('.auth-modal-content, .cart-modal-content, .recipe-modal-content').on('touchstart', function(e) {
+        touchStartY = e.originalEvent.touches[0].clientY;
+    });
+    
+    $('.auth-modal-content, .cart-modal-content, .recipe-modal-content').on('touchmove', function(e) {
+        touchEndY = e.originalEvent.touches[0].clientY;
+        
+        // Allow scrolling within modal
+        const scrollTop = $(this).scrollTop();
+        const scrollHeight = $(this)[0].scrollHeight;
+        const height = $(this).height();
+        
+        // If at top and swiping down, or at bottom and swiping up, prevent default
+        if ((scrollTop === 0 && touchEndY > touchStartY) || 
+            (scrollTop + height >= scrollHeight && touchEndY < touchStartY)) {
+            e.preventDefault();
+        }
+    });
+    
+    $('.auth-modal-content, .cart-modal-content, .recipe-modal-content').on('touchend', function() {
+        const swipeDistance = touchEndY - touchStartY;
+        
+        // If swiped down more than 100px, close modal
+        if (swipeDistance > 100) {
+            const modalType = $(this).closest('.auth-modal, .cart-modal, .recipe-modal').attr('id');
+            
+            if (modalType === 'authModal') {
+                closeAuthModal();
+            } else if (modalType === 'cartModal') {
+                closeCart();
+            } else if (modalType === 'recipeModal') {
+                closeRecipeModal();
+            }
+        }
+    });
+}
+
+// ====================================================================
+// 8. FIX CART MODAL FOR MOBILE
+// ====================================================================
+function fixCartModalMobile() {
+    // Adjust cart item layout for mobile
+    function adjustCartLayout() {
+        if ($(window).width() < 768) {
+            $('.cart-item').each(function() {
+                const $item = $(this);
+                const $controls = $item.find('.cart-item-controls');
+                
+                // Stack controls vertically on mobile
+                $controls.css({
+                    'flex-direction': 'column',
+                    'align-items': 'stretch',
+                    'width': '100%'
+                });
+            });
+        } else {
+            $('.cart-item .cart-item-controls').css({
+                'flex-direction': 'row',
+                'align-items': 'center',
+                'width': 'auto'
+            });
+        }
+    }
+    
+    adjustCartLayout();
+    $(window).on('resize', adjustCartLayout);
+    
+    // Update cart display to trigger layout adjustment
+    const originalUpdateCartDisplay = window.updateCartDisplay;
+    if (typeof originalUpdateCartDisplay === 'function') {
+        window.updateCartDisplay = function() {
+            originalUpdateCartDisplay();
+            setTimeout(adjustCartLayout, 100);
+        };
+    }
+}
+
+// ====================================================================
+// 9. OPTIMIZE IMAGES FOR MOBILE
+// ====================================================================
+function optimizeImagesForMobile() {
+    // Lazy load images on mobile for better performance
+    if ($(window).width() < 768) {
+        $('img').each(function() {
+            const $img = $(this);
+            
+            // Add loading="lazy" attribute
+            if (!$img.attr('loading')) {
+                $img.attr('loading', 'lazy');
+            }
+        });
+    }
+}
+
+// ====================================================================
+// 10. ADD MOBILE-SPECIFIC UTILITIES
+// ====================================================================
+
+// Detect orientation change
+$(window).on('orientationchange', function() {
+    // Close all modals on orientation change
+    $('.auth-modal, .cart-modal, .recipe-modal').fadeOut(300);
+    $('body').css('overflow', 'auto');
+    
+    // Show notification
+    showNotification('info', '📱 Screen orientation changed');
+    
+    // Recalculate layouts
+    setTimeout(() => {
+        $(window).trigger('resize');
+    }, 100);
+});
+
+// Add pull-to-refresh indicator
+let pullStartY = 0;
+$(window).on('touchstart', function(e) {
+    if ($(window).scrollTop() === 0) {
+        pullStartY = e.originalEvent.touches[0].clientY;
+    }
+});
+
+$(window).on('touchmove', function(e) {
+    if ($(window).scrollTop() === 0) {
+        const currentY = e.originalEvent.touches[0].clientY;
+        const pullDistance = currentY - pullStartY;
+        
+        if (pullDistance > 100) {
+            // Add visual indicator (optional)
+            if ($('#pullToRefresh').length === 0) {
+                $('body').prepend('<div id="pullToRefresh" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background: #ffc107; color: #000; padding: 10px 20px; border-radius: 20px; z-index: 99999;">Release to refresh</div>');
+            }
+        }
+    }
+});
+
+$(window).on('touchend', function() {
+    if ($('#pullToRefresh').length > 0) {
+        $('#pullToRefresh').remove();
+        location.reload();
+    }
+});
+
+// ====================================================================
+// 11. PERFORMANCE OPTIMIZATIONS FOR MOBILE
+// ====================================================================
+
+// Throttle scroll events on mobile
+let scrollTimeout;
+if ($(window).width() < 768) {
+    const originalScrollHandler = $(window).data('events')?.scroll;
+    
+    $(window).off('scroll').on('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            if (originalScrollHandler) {
+                originalScrollHandler.forEach(handler => handler.handler());
+            }
+        }, 50);
+    });
+}
+
+// Reduce animation on low-end devices
+if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) {
+    $('*').css('animation-duration', '0.2s');
+    $('*').css('transition-duration', '0.2s');
+}
+
+console.log('✅ Mobile fixes initialized successfully!');
+
+// FIX AUTH MODAL SCROLL
+$(document).ready(function() {
+    // Разрешаем скролл на модалке
+    $('#authModal').css({
+        'overflow-y': 'auto',
+        '-webkit-overflow-scrolling': 'touch'
+    });
+    
+    // При открытии прокручиваем наверх
+    $('#loginBtn, #signupBtn').on('click', function() {
+        setTimeout(() => {
+            $('#authModal').scrollTop(0);
+        }, 100);
+    });
+    
+    // Корректировка при изменении ориентации
+    $(window).on('orientationchange resize', function() {
+        if ($('#authModal').is(':visible')) {
+            setTimeout(() => {
+                $('#authModal').scrollTop(0);
+            }, 200);
+        }
+    });
+});
+
+// ====================================================================
+// FIX AUTO SCROLL AFTER REGISTRATION/LOGIN
+// ====================================================================
+
+// Сохраняем оригинальные функции
+const originalHandleSignup = window.handleSignup;
+const originalHandleLogin = window.handleLogin;
+const originalCloseAuthModal = window.closeAuthModal;
+
+// ПЕРЕОПРЕДЕЛЯЕМ handleSignup
+function handleSignup(e) {
+    e.preventDefault();
+    
+    // Сохраняем текущую позицию скролла
+    const scrollPosition = $(window).scrollTop();
+    
+    const name = $('#signupName').val().trim();
+    const email = $('#signupEmail').val().trim();
+    const phone = $('#signupPhone').val().trim();
+    const password = $('#signupPassword').val();
+    const passwordConfirm = $('#signupPasswordConfirm').val();
+    
+    // Validation
+    let isValid = true;
+    $('.form-control').removeClass('is-invalid');
+    
+    if (name.length < 2) {
+        $('#signupName').addClass('is-invalid');
+        isValid = false;
+    }
+    
+    if (!isValidEmail(email)) {
+        $('#signupEmail').addClass('is-invalid');
+        showNotification('error', '❌ Invalid email format');
+        isValid = false;
+    }
+    
+    if (!isValidPhone(phone)) {
+        $('#signupPhone').addClass('is-invalid');
+        showNotification('error', '❌ Invalid phone number format');
+        isValid = false;
+    }
+    
+    if (!isValidPassword(password)) {
+        $('#signupPassword').addClass('is-invalid');
+        showNotification('error', '❌ Password must be 8+ chars with uppercase, lowercase, and number');
+        isValid = false;
+    }
+    
+    if (password !== passwordConfirm) {
+        $('#signupPasswordConfirm').addClass('is-invalid');
+        showNotification('error', '❌ Passwords do not match');
+        isValid = false;
+    }
+    
+    if (!isValid) {
+        // КРИТИЧЕСКИЙ ФИХ: Возвращаем скролл на место
+        setTimeout(() => {
+            $(window).scrollTop(scrollPosition);
+        }, 10);
+        return;
+    }
+    
+    // Check if user exists
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (users.find(u => u.email === email)) {
+        showNotification('error', '❌ Email already registered');
+        // Возвращаем скролл
+        setTimeout(() => {
+            $(window).scrollTop(scrollPosition);
+        }, 10);
+        return;
+    }
+    
+    // Create new user
+    const newUser = {
+        id: Date.now(),
+        name,
+        email,
+        phone,
+        password,
+        createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    
+    currentUser = newUser;
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
+    
+    updateAuthUI();
+    
+    // КРИТИЧЕСКИЙ ФИХ: Закрываем модалку БЕЗ прокрутки
+    closeAuthModalWithoutScroll();
+    
+    // Показываем уведомление
+    showNotification('success', `🎉 Account created! Welcome, ${name}!`);
+    
+    // Сбрасываем форму
+    $('#signupFormElement')[0].reset();
+    
+    // ГАРАНТИРОВАННО возвращаем скролл на исходную позицию
+    setTimeout(() => {
+        $(window).scrollTop(scrollPosition);
+        $('html, body').scrollTop(scrollPosition);
+    }, 50);
+}
+
+// ПЕРЕОПРЕДЕЛЯЕМ handleLogin
+function handleLogin(e) {
+    e.preventDefault();
+    
+    // Сохраняем текущую позицию скролла
+    const scrollPosition = $(window).scrollTop();
+    
+    const email = $('#loginEmail').val().trim();
+    const password = $('#loginPassword').val();
+    
+    // Get users from localStorage
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+        currentUser = user;
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        updateAuthUI();
+        
+        // Закрываем модалку БЕЗ прокрутки
+        closeAuthModalWithoutScroll();
+        
+        showNotification('success', `✅ Welcome back, ${user.name}!`);
+        $('#loginFormElement')[0].reset();
+        
+        // ГАРАНТИРОВАННО возвращаем скролл
+        setTimeout(() => {
+            $(window).scrollTop(scrollPosition);
+            $('html, body').scrollTop(scrollPosition);
+        }, 50);
+    } else {
+        showNotification('error', '❌ Invalid email or password');
+        // Возвращаем скролл
+        setTimeout(() => {
+            $(window).scrollTop(scrollPosition);
+        }, 10);
+    }
+}
+
+// НОВАЯ ФУНКЦИЯ: Закрытие модалки БЕЗ автоскролла
+function closeAuthModalWithoutScroll() {
+    const $modal = $('#authModal');
+    const $body = $('body');
+    
+    // Сохраняем позицию скролла ДО закрытия
+    const scrollPos = $(window).scrollTop();
+    
+    // Закрываем модалку
+    $modal.fadeOut(300);
+    
+    // Восстанавливаем body
+    $body.css({
+        'overflow': '',
+        'position': '',
+        'top': '',
+        'width': '',
+        'height': ''
+    });
+    
+    // КРИТИЧЕСКИЙ ФИХ: Принудительно возвращаем скролл
+    $(window).scrollTop(scrollPos);
+    $('html, body').scrollTop(scrollPos);
+    
+    // Дополнительная проверка через 100ms
+    setTimeout(() => {
+        $(window).scrollTop(scrollPos);
+        $('html, body').scrollTop(scrollPos);
+    }, 100);
+    
+    // И еще одна через 300ms (после анимации)
+    setTimeout(() => {
+        $(window).scrollTop(scrollPos);
+        $('html, body').scrollTop(scrollPos);
+    }, 300);
+}
+
+// ПЕРЕОПРЕДЕЛЯЕМ стандартный closeAuthModal
+function closeAuthModal() {
+    closeAuthModalWithoutScroll();
+}
+
+// Экспортируем функции в глобальную область
+window.handleSignup = handleSignup;
+window.handleLogin = handleLogin;
+window.closeAuthModal = closeAuthModal;
+window.closeAuthModalWithoutScroll = closeAuthModalWithoutScroll;
+
+// ====================================================================
+// ДОПОЛНИТЕЛЬНЫЕ ФИКСЫ
+// ====================================================================
+
+$(document).ready(function() {
+    
+    // 1. БЛОКИРУЕМ АВТОФОКУС НА ЭЛЕМЕНТАХ ПОСЛЕ ЗАКРЫТИЯ МОДАЛКИ
+    $('#authModal').on('hide.bs.modal hidden.bs.modal', function(e) {
+        e.preventDefault();
+        
+        // Убираем фокус со всех элементов
+        $(':focus').blur();
+        
+        // Запрещаем автоскролл
+        const scrollY = $(window).scrollTop();
+        $(window).scrollTop(scrollY);
+    });
+    
+    // 2. БЛОКИРУЕМ СКРОЛЛ ПРИ ПОКАЗЕ УВЕДОМЛЕНИЙ
+    const originalShowNotification = window.showNotification;
+    window.showNotification = function(type, message) {
+        const scrollPos = $(window).scrollTop();
+        
+        if (typeof originalShowNotification === 'function') {
+            originalShowNotification(type, message);
+        }
+        
+        // Возвращаем скролл
+        setTimeout(() => {
+            $(window).scrollTop(scrollPos);
+        }, 10);
+    };
+    
+    // 3. ПРЕДОТВРАЩАЕМ SCROLL TO TOP ПРИ ОБНОВЛЕНИИ UI
+    const originalUpdateAuthUI = window.updateAuthUI;
+    window.updateAuthUI = function() {
+        const scrollPos = $(window).scrollTop();
+        
+        if (typeof originalUpdateAuthUI === 'function') {
+            originalUpdateAuthUI();
+        }
+        
+        // Возвращаем скролл после обновления UI
+        setTimeout(() => {
+            $(window).scrollTop(scrollPos);
+        }, 10);
+    };
+    
+    // 4. БЛОКИРУЕМ АВТОСКРОЛЛ ПРИ ИЗМЕНЕНИИ DOM
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            // Если изменился navbar (добавилось/убралось имя пользователя)
+            if (mutation.target.id === 'authButtons' || mutation.target.id === 'userProfile') {
+                // НЕ скроллим
+                const currentScroll = $(window).scrollTop();
+                setTimeout(() => {
+                    $(window).scrollTop(currentScroll);
+                }, 0);
+            }
+        });
+    });
+    
+    // Наблюдаем за изменениями в navbar
+    const navbarElement = document.querySelector('.navbar-nav');
+    if (navbarElement) {
+        observer.observe(navbarElement, {
+            attributes: true,
+            childList: true,
+            subtree: true
+        });
+    }
+    
+    // 5. ПРЕДОТВРАЩАЕМ SCROLL ПРИ FADEOUT МОДАЛКИ
+    $('#authModal').on('fadeOut', function() {
+        const scrollPos = $(window).scrollTop();
+        $(window).scrollTop(scrollPos);
+    });
+    
+    // 6. ФИХ ДЛЯ BODY POSITION FIXED
+    let bodyScrollPosition = 0;
+    
+    // При открытии модалки
+    $('#loginBtn, #signupBtn, #profileLink').on('click', function() {
+        bodyScrollPosition = $(window).scrollTop();
+        
+        $('body').css({
+            'position': 'fixed',
+            'top': `-${bodyScrollPosition}px`,
+            'width': '100%'
+        });
+    });
+    
+    // При закрытии модалки - возвращаем скролл
+    $('.auth-close').on('click', function() {
+        $('body').css({
+            'position': '',
+            'top': '',
+            'width': ''
+        });
+        
+        $(window).scrollTop(bodyScrollPosition);
+    });
+    
+    // 7. ПРЕДОТВРАЩАЕМ СКРОЛЛ ПРИ RESET ФОРМЫ
+    $('#signupFormElement, #loginFormElement').on('reset', function() {
+        const scrollPos = $(window).scrollTop();
+        setTimeout(() => {
+            $(window).scrollTop(scrollPos);
+        }, 0);
+    });
+    
+    // 8. БЛОКИРУЕМ АВТОСКРОЛЛ К ANCHOR LINKS
+    $('a[href^="#"]').on('click', function(e) {
+        // Если это не навигационная ссылка, блокируем скролл
+        const href = $(this).attr('href');
+        if (href === '#' || !document.querySelector(href)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // 9. ФИХ ДЛЯ iOS SAFARI
+    if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+        // Предотвращаем bounce scroll после закрытия модалки
+        $(window).on('touchmove', function(e) {
+            if ($('#authModal').is(':visible')) {
+                // Разрешаем скролл только внутри модалки
+                const $target = $(e.target);
+                if (!$target.closest('#authModal').length) {
+                    e.preventDefault();
+                }
+            }
+        });
+    }
+    
+    // 10. ГЛОБАЛЬНАЯ ЗАЩИТА ОТ АВТОСКРОЛЛА
+    let isModalClosing = false;
+    
+    $('#authModal').on('hide', function() {
+        isModalClosing = true;
+        const scrollPos = $(window).scrollTop();
+        
+        // Блокируем любые попытки скролла на 500ms
+        $(window).on('scroll.blockscroll', function() {
+            if (isModalClosing) {
+                $(window).scrollTop(scrollPos);
+            }
+        });
+        
+        setTimeout(() => {
+            isModalClosing = false;
+            $(window).off('scroll.blockscroll');
+        }, 500);
+    });
+    
+    console.log('✅ Auto-scroll prevention activated!');
+});
+
+// ====================================================================
+// ЭКСТРЕННЫЙ ФИХ: CSS для предотвращения скролла
+// ====================================================================
+
+// Добавляем CSS правило для body
+if ($('#preventScrollStyles').length === 0) {
+    $('head').append(`
+        <style id="preventScrollStyles">
+            body.modal-closing {
+                overflow: hidden !important;
+                position: fixed !important;
+                width: 100% !important;
+            }
+            
+            /* Предотвращаем скролл при обновлении navbar */
+            #authButtons, #userProfile {
+                transition: none !important;
+            }
+        </style>
+    `);
+}
+

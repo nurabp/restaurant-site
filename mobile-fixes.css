@@ -1,0 +1,486 @@
+/* ====================================================================
+   MOBILE & TABLET RESPONSIVE FIXES
+   ==================================================================== */
+
+/* BASE MOBILE STYLES (320px - 767px) */
+@media (max-width: 767px) {
+    
+    /* NAVBAR FIXES */
+    .navbar-nav {
+        width: 100%;
+    }
+    
+    #authButtons {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    #authButtons .btn {
+        width: 100%;
+        margin: 5px 0 !important;
+    }
+    
+    #userProfile {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+    
+    /* CART ICON */
+    #cartIcon {
+        font-size: 1.2rem;
+        padding: 10px 0;
+    }
+    
+    /* MODALS - AUTH */
+    .auth-modal-content {
+        margin: 10px;
+        padding: 20px;
+        width: calc(100% - 20px);
+        max-width: none;
+    }
+    
+    .auth-close {
+        right: 10px;
+        top: 10px;
+        font-size: 1.5rem;
+    }
+    
+    .auth-form h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* CART MODAL */
+    .cart-modal-content {
+        width: 95%;
+        margin: 5% auto;
+        max-height: 85vh;
+    }
+    
+    .cart-header {
+        padding: 15px;
+    }
+    
+    .cart-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .cart-body {
+        padding: 10px;
+        max-height: 40vh;
+    }
+    
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .cart-item-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .cart-footer {
+        padding: 15px;
+    }
+    
+    /* RECIPE MODAL */
+    .recipe-modal-content {
+        width: 95%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+    
+    .recipe-title {
+        font-size: 1.5rem;
+    }
+    
+    .recipe-info {
+        gap: 10px;
+    }
+    
+    .recipe-badge {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+    
+    /* SEARCH BAR */
+    #menuSearchBar {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    
+    /* FILTER BUTTONS */
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .filter-btn {
+        width: 100%;
+        margin-bottom: 8px !important;
+    }
+    
+    .category-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+    
+    /* CARDS */
+    .card-img-top {
+        height: 250px !important;
+    }
+    
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    /* STATS SECTION */
+    .stat-box {
+        margin-bottom: 15px;
+    }
+    
+    .counter {
+        font-size: 2rem !important;
+    }
+    
+    /* FORMS */
+    .form-control {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    input[type="date"],
+    input[type="time"] {
+        font-size: 16px;
+    }
+    
+    /* ACCORDION */
+    .accordion-header-custom {
+        padding: 15px;
+    }
+    
+    .accordion-header-custom h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* FEATURE BUTTONS */
+    .feature-buttons {
+        bottom: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+    
+    .feature-btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* NOTIFICATIONS */
+    #notificationContainer {
+        top: 60px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .notification {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* POPUP */
+    .popup-form {
+        padding: 25px;
+        width: 95%;
+    }
+    
+    /* RATING STARS */
+    .stars {
+        font-size: 1.2rem;
+    }
+    
+    /* HEADINGS */
+    main h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    main h2 {
+        font-size: 1.3rem !important;
+    }
+    
+    /* AUTOCOMPLETE */
+    #autocompleteSuggestions {
+        max-height: 200px;
+    }
+    
+    #autocompleteSuggestions li {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* CAROUSEL */
+    .carousel-inner .carousel-item img {
+        height: 250px !important;
+    }
+    
+    /* PROFILE INFO */
+    .profile-info {
+        padding: 15px;
+    }
+    
+    .profile-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        padding: 10px 0;
+    }
+}
+
+/* TABLET STYLES (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+    /* AUTH MODAL */
+    .auth-modal-content {
+        margin: 8% auto;
+        padding: 30px;
+        width: 85%;
+    }
+    
+    /* CART MODAL */
+    .cart-modal-content {
+        width: 80%;
+    }
+    
+    .cart-body {
+        max-height: 45vh;
+    }
+    
+    /* RECIPE MODAL */
+    .recipe-modal-content {
+        width: 85%;
+    }
+    
+    /* CARDS */
+    .card-img-top {
+        height: 300px !important;
+    }
+    
+    /* FILTER SECTION */
+    .btn-group {
+        flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+        flex: 0 0 calc(50% - 4px);
+    }
+    
+    /* STATS */
+    .counter {
+        font-size: 2.5rem !important;
+    }
+    
+    /* CAROUSEL */
+    .carousel-inner .carousel-item img {
+        height: 400px !important;
+    }
+}
+
+/* LANDSCAPE MOBILE (480px - 767px) */
+@media (max-width: 767px) and (orientation: landscape) {
+    
+    .auth-modal-content,
+    .cart-modal-content,
+    .recipe-modal-content {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .cart-body {
+        max-height: 30vh;
+    }
+    
+    .carousel-inner .carousel-item img {
+        height: 300px !important;
+    }
+}
+
+/* SMALL MOBILE (320px - 480px) */
+@media (max-width: 480px) {
+    
+    body {
+        font-size: 14px;
+    }
+    
+    /* EXTRA SMALL BUTTONS */
+    .btn {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+    
+    /* NAVBAR */
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    /* MODALS */
+    .auth-modal-content,
+    .recipe-modal-content {
+        padding: 15px;
+    }
+    
+    /* CARDS */
+    .card-img-top {
+        height: 200px !important;
+    }
+    
+    .card-body {
+        padding: 12px;
+    }
+    
+    /* FORM INPUTS */
+    .form-control {
+        padding: 10px 12px;
+    }
+    
+    /* QUANTITY CONTROLS */
+    .quantity-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 0.9rem;
+    }
+    
+    /* NOTIFICATION */
+    .notification {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+    
+    /* DATETIME */
+    .datetime-display {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+    
+    /* RECIPE BADGES */
+    .recipe-badge {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+}
+
+/* FIX FOR HORIZONTAL SCROLL */
+@media (max-width: 767px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .row {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+    
+    .row > * {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+/* TOUCHSCREEN IMPROVEMENTS */
+@media (hover: none) and (pointer: coarse) {
+    
+    /* Larger touch targets */
+    .btn,
+    .nav-link,
+    .card {
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects on touch */
+    .card:hover {
+        transform: none;
+    }
+    
+    .feature-btn:hover {
+        transform: none;
+    }
+    
+    /* Tap highlight color */
+    * {
+        -webkit-tap-highlight-color: rgba(255, 193, 7, 0.3);
+    }
+}
+
+/* SAFE AREA FOR NOTCH DEVICES (iPhone X+) */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(0px, env(safe-area-inset-left));
+        padding-right: max(0px, env(safe-area-inset-right));
+    }
+    
+    .navbar {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+    }
+}
+
+/* FIX FOR iOS INPUT ZOOM */
+@media (max-width: 767px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* LOADING SPINNER ON MOBILE */
+@media (max-width: 767px) {
+    #recipeLoading {
+        padding: 40px 0;
+    }
+    
+    .spinner-border {
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+}
+
+/* RECIPE INGREDIENTS LIST */
+@media (max-width: 767px) {
+    .ingredient-list li {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    
+    .instructions {
+        font-size: 1rem;
+    }
+}
+
+/* SCROLLBAR STYLING FOR MOBILE */
+@media (max-width: 767px) {
+    .cart-body::-webkit-scrollbar,
+    .recipe-modal-content::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .cart-body::-webkit-scrollbar-thumb,
+    .recipe-modal-content::-webkit-scrollbar-thumb {
+        background: #ffc107;
+        border-radius: 4px;
+    }
+}
